@@ -19,8 +19,8 @@ func startRandomTimer():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var _var = connect("enqueue_action", get_node("/root/Battle/HUD/Timeline"), "_on_enqueue_action")
-	_var = connect("enemy_attack", get_node("/root/Battle/Hero"), "_on_enemy_attack")
+	var _var = connect("enqueue_action", get_node("/root/Main/World/Battle/HUD/Timeline"), "_on_enqueue_action")
+	_var = connect("enemy_attack", get_node("/root/Main/World/Battle/Hero"), "_on_enemy_attack")
 	randomize()
 	startRandomTimer()
 

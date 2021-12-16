@@ -1,7 +1,7 @@
 extends Node2D
 
-var hero_blue = preload("res://CharBlue.tscn").instance()
-var hero_yellow = preload("res://CharYellow.tscn").instance()
+var hero_blue = preload("res://scenes/actors/heroes/CharBlue.tscn").instance()
+var hero_yellow = preload("res://scenes/actors/heroes/CharYellow.tscn").instance()
 var hero_current
 
 var defend_up = false

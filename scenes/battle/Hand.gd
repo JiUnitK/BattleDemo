@@ -1,7 +1,7 @@
 extends Node2D
 
-var card_blue = preload("res://CardBlue.tscn")
-var card_yellow = preload("res://CardYellow.tscn")
+var card_blue = preload("res://scenes/cards/CardBlue.tscn")
+var card_yellow = preload("res://scenes/cards/CardYellow.tscn")
 
 var deck = []
 var hand = []

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/char_yellow.png-adee2c557d3237514757078c1b0ff6b6.stex"
+path="res://.import/red_dot.png-621a1429842a913697697c5bc5c746b4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/char_yellow.png"
-dest_files=[ "res://.import/char_yellow.png-adee2c557d3237514757078c1b0ff6b6.stex" ]
+source_file="res://assets/textures/timeline/red_dot.png"
+dest_files=[ "res://.import/red_dot.png-621a1429842a913697697c5bc5c746b4.stex" ]
 
 [params]
 

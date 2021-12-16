@@ -6,8 +6,8 @@ signal swap_hero(target)
 signal defend(time)
 
 func _ready():
-	var _var = connect("swap_hero", get_node("/root/Battle/Hero"), "_on_swap_hero")
-	_var = connect("defend", get_node("/root/Battle/Hero"), "_on_defend")
+	var _var = connect("swap_hero", get_node("/root/Main/World/Battle/Hero"), "_on_swap_hero")
+	_var = connect("defend", get_node("/root/Main/World/Battle/Hero"), "_on_defend")
 
 func invoke():
 	emit_signal("swap_hero", "blue")
