@@ -7,6 +7,9 @@ var deck = []
 var hand = []
 var selection = 0
 
+signal swap_hero(name)
+signal defend(time)
+
 func setHandPositions():
 	if selection > hand.size() - 1:
 		selection = hand.size() - 1
@@ -31,11 +34,16 @@ func setHandPositions():
 func _ready():
 	var unshuffled_deck = []
 	for i in 3:
-		unshuffled_deck.push_back(card_blue.instance())
-		unshuffled_deck.push_back(card_yellow.instance())
+		var card = card_blue.instance()
+		card.connect("swap_hero", self, "_on_swap_hero")
+		card.connect("defend", self, "_on_defend")
+		unshuffled_deck.push_back(card)
+		
+		card = card_yellow.instance()
+		card.connect("swap_hero", self, "_on_swap_hero")
+		unshuffled_deck.push_back(card)
 		
 	# Shuffle deck of 3 attack and 3 defend
-	randomize()
 	for i in 6:
 		deck.push_back(unshuffled_deck.pop_at(randi() % unshuffled_deck.size()))
 		
@@ -48,6 +56,7 @@ func _ready():
 	setHandPositions()
 
 func _on_Timer_timeout():
+	# Draw a card
 	if hand.size() < 5 && not deck.empty():
 		hand.push_back(deck.pop_front())
 		add_child(hand.back())
@@ -69,22 +78,27 @@ func _on_player_key(key):
 	setHandPositions()
 	
 func _on_hero_death(hero):
+	# Remove all cards associated with hero
 	if hero == "yellow":
 		for i in range(deck.size()-1, -1, -1):
 			if deck[i] is CardYellow:
-				deck.pop_at(i)
+				deck.pop_at(i).queue_free()
 		for i in range(hand.size()-1, -1, -1):
 			if hand[i] is CardYellow:
-				print("found yellow card in hand")
 				remove_child(hand[i])
-				hand.pop_at(i)
+				hand.pop_at(i).queue_free()
 	elif hero == "blue":
 		for i in range(deck.size()-1, -1, -1):
 			if deck[i] is CardBlue:
-				deck.pop_at(i)
+				deck.pop_at(i).queue_free()
 		for i in range(hand.size()-1, -1, -1):
 			if hand[i] is CardBlue:
 				remove_child(hand[i])
-				hand.pop_at(i)
+				hand.pop_at(i).queue_free()
 	setHandPositions()
-		
+	
+func _on_swap_hero(name):
+	emit_signal("swap_hero", name)
+	
+func _on_defend(time):
+	emit_signal("defend", time)

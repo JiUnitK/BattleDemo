@@ -3,7 +3,7 @@ extends Node2D
 var hp = 1000
 var hp_max = 1000
 
-signal enqueue_action(name, steps)
+signal enemy_schedules_attack(steps)
 signal enemy_attack(value)
 
 func refreshHP():
@@ -11,18 +11,11 @@ func refreshHP():
 	
 func startRandomTimer():
 	if randi() % 2:
-		emit_signal("enqueue_action", "RedEnemy", $HeavyAttackTimer.wait_time)
+		emit_signal("enemy_schedules_attack", $HeavyAttackTimer.wait_time)
 		$HeavyAttackTimer.start()
 	else:
-		emit_signal("enqueue_action", "RedEnemy", $NormalAttackTimer.wait_time)
+		emit_signal("enemy_schedules_attack", $NormalAttackTimer.wait_time)
 		$NormalAttackTimer.start()
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	var _var = connect("enqueue_action", get_node("/root/Main/World/Battle/HUD/Timeline"), "_on_enqueue_action")
-	_var = connect("enemy_attack", get_node("/root/Main/World/Battle/Hero"), "_on_enemy_attack")
-	randomize()
-	startRandomTimer()
 
 func _on_NormalAttackTimer_timeout():
 	emit_signal("enemy_attack", -50)	

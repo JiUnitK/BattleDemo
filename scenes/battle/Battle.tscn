@@ -1,14 +1,15 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/battle/Hero.gd" type="Script" id=1]
-[ext_resource path="res://scenes/battle/Control.gd" type="Script" id=2]
 [ext_resource path="res://scenes/battle/Timeline.gd" type="Script" id=3]
 [ext_resource path="res://assets/textures/timeline/red_dot.png" type="Texture" id=4]
 [ext_resource path="res://scenes/actors/enemies/RedRect.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/battle/EffectText.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/battle/Hand.gd" type="Script" id=7]
+[ext_resource path="res://scenes/battle/Battle.gd" type="Script" id=8]
 
 [node name="Battle" type="Node2D"]
+script = ExtResource( 8 )
 
 [node name="HUD" type="Node2D" parent="."]
 
@@ -47,8 +48,5 @@ one_shot = true
 
 [node name="EffectText" parent="Hero" instance=ExtResource( 6 )]
 
-[node name="Control" type="Node" parent="."]
-script = ExtResource( 2 )
-
 [connection signal="timeout" from="Hand/Timer" to="Hand" method="_on_Timer_timeout"]
-[connection signal="timeout" from="Hero/DefendTimer" to="Hero" method="_on_defend_timer_timeout"]
+[connection signal="timeout" from="Hero/DefendTimer" to="Hero" method="_on_defend_timeout"]

@@ -7,7 +7,7 @@ func _ready():
 func _on_Timer_timeout():
 	visible = false
 
-func setText(message):
+func flashText(message):
 	visible = true
 	$Label.text = message
 	$Timer.start(1)
