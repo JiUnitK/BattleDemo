@@ -7,8 +7,9 @@ var deck = []
 var hand = []
 var selection = 0
 
-signal swap_hero(name)
+signal hero_swap(name)
 signal defend(time)
+signal damage_enemy(value)
 
 func setHandPositions():
 	if selection > hand.size() - 1:
@@ -28,12 +29,13 @@ func _ready():
 	var unshuffled_deck = []
 	for i in 3:
 		var card = card_blue.instance()
-		card.connect("swap_hero", self, "_on_swap_hero")
-		card.connect("defend", self, "_on_defend")
+		card.connect("hero_swap", self, "_on_hero_swap")
+		card.connect("hero_defend", self, "_on_defend")
 		unshuffled_deck.push_back(card)
 		
 		card = card_yellow.instance()
-		card.connect("swap_hero", self, "_on_swap_hero")
+		card.connect("hero_swap", self, "_on_hero_swap")
+		card.connect("damage_enemy", self, "_on_damage_enemy")
 		unshuffled_deck.push_back(card)
 		
 	# Shuffle deck of 3 attack and 3 defend
@@ -87,8 +89,11 @@ func _on_hero_death(hero):
 			hand.pop_at(i).queue_free()
 	setHandPositions()
 	
-func _on_swap_hero(name):
-	emit_signal("swap_hero", name)
+func _on_hero_swap(name):
+	emit_signal("hero_swap", name)
 	
 func _on_defend(time):
 	emit_signal("defend", time)
+	
+func _on_damage_enemy(value):
+	emit_signal("damage_enemy", value)

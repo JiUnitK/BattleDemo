@@ -3,8 +3,9 @@ extends Node2D
 
 var hero_blue = preload("res://scenes/actors/heroes/CharBlue.tscn").instance()
 var hero_yellow = preload("res://scenes/actors/heroes/CharYellow.tscn").instance()
-var hero_current
+var effect_text = preload("res://scenes/battle/EffectText.tscn")
 
+var hero_current
 var defend_up = false
 
 signal hero_death(hero)
@@ -23,7 +24,7 @@ func _on_enemy_attack(value):
 	else:
 		hero_current._on_hp_change(value)
 
-func _on_swap_hero(hero):
+func _on_hero_swap(hero):
 	var target_hero
 	if hero == "blue" and hero_current != hero_blue:
 		target_hero = hero_blue
@@ -41,11 +42,15 @@ func _on_swap_hero(hero):
 func _on_hero_death(hero):
 	emit_signal("hero_death", hero)
 	if hero == "blue" and hero_current == hero_blue:
-		_on_swap_hero("yellow")
+		_on_hero_swap("yellow")
 	elif hero == "yellow" and hero_current == hero_yellow:
-		_on_swap_hero("blue")
+		_on_hero_swap("blue")
 	
 func _on_defend(time):
+	var text = effect_text.instance()
+	add_child(text)
+	text.flashText("defend up")
+	
 	defend_up = true
 	$DefendTimer.start(time)
 	$EffectText.flashText("defend up")

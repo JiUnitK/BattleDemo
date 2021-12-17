@@ -6,6 +6,7 @@ func _ready():
 
 func _on_Timer_timeout():
 	visible = false
+	queue_free()
 
 func flashText(message):
 	visible = true
