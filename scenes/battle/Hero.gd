@@ -24,18 +24,19 @@ func _on_enemy_attack(value):
 		hero_current._on_hp_change(value)
 
 func _on_swap_hero(hero):
+	var target_hero
 	if hero == "blue" and hero_current != hero_blue:
-		hero_current.disconnect("hero_death", self, "_on_hero_death")
-		remove_child(hero_current)
-		hero_current = hero_blue
-		add_child(hero_current)
-		hero_current.connect("hero_death", self, "_on_hero_death")
+		target_hero = hero_blue
 	elif hero == "yellow" and hero_current != hero_yellow:
-		hero_current.disconnect("hero_death", self, "_on_hero_death")
-		remove_child(hero_current)
-		hero_current = hero_yellow
-		add_child(hero_current)
-		hero_current.connect("hero_death", self, "_on_hero_death")
+		target_hero = hero_yellow
+	else:
+		return
+	
+	hero_current.disconnect("hero_death", self, "_on_hero_death")
+	remove_child(hero_current)
+	hero_current = target_hero
+	add_child(hero_current)
+	hero_current.connect("hero_death", self, "_on_hero_death")
 
 func _on_hero_death(hero):
 	emit_signal("hero_death", hero)

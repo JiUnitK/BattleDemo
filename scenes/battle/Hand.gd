@@ -16,16 +16,9 @@ func setHandPositions():
 	if selection < 0:
 		selection = 0
 		
-	if hand.size() % 2:
-		# odd
-		var mid = hand.size() / 2
-		for i in hand.size():
-				hand[i].position = Vector2(200, 0) * (i - mid)
-	else:
-		#even
-		var mid = (hand.size()-1) / 2.0
-		for i in hand.size():
-			hand[i].position = Vector2(200, 0) * (i - mid)
+	var mid = (hand.size()-1) / 2.0
+	for i in hand.size():
+		hand[i].position = Vector2(200, 0) * (i - mid)
 			
 	if hand.size() > 0:
 		hand[selection].position += Vector2(0, -50)
@@ -57,7 +50,7 @@ func _ready():
 
 func _on_Timer_timeout():
 	# Draw a card
-	if hand.size() < 5 && not deck.empty():
+	if hand.size() < 5 and not deck.empty():
 		hand.push_back(deck.pop_front())
 		add_child(hand.back())
 		setHandPositions()
@@ -79,22 +72,19 @@ func _on_player_key(key):
 	
 func _on_hero_death(hero):
 	# Remove all cards associated with hero
+	var card_class
 	if hero == "yellow":
-		for i in range(deck.size()-1, -1, -1):
-			if deck[i] is CardYellow:
-				deck.pop_at(i).queue_free()
-		for i in range(hand.size()-1, -1, -1):
-			if hand[i] is CardYellow:
-				remove_child(hand[i])
-				hand.pop_at(i).queue_free()
-	elif hero == "blue":
-		for i in range(deck.size()-1, -1, -1):
-			if deck[i] is CardBlue:
-				deck.pop_at(i).queue_free()
-		for i in range(hand.size()-1, -1, -1):
-			if hand[i] is CardBlue:
-				remove_child(hand[i])
-				hand.pop_at(i).queue_free()
+		card_class = CardYellow
+	else:
+		card_class = CardBlue
+	
+	for i in range(deck.size()-1, -1, -1):
+		if deck[i] is card_class:
+			deck.pop_at(i).queue_free()
+	for i in range(hand.size()-1, -1, -1):
+		if hand[i] is card_class:
+			remove_child(hand[i])
+			hand.pop_at(i).queue_free()
 	setHandPositions()
 	
 func _on_swap_hero(name):
