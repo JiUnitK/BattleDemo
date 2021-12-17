@@ -65,11 +65,9 @@ func _on_hero_death(hero):
 func _on_defend(time):
 	var text = effect_text.instance()
 	add_child(text)
-	text.flashText("defend up")
-	
+	text.flashText("defend up", true)
 	defend_up = true
 	$DefendTimer.start(time)
-	$EffectText.flashText("defend up")
 
 func _on_defend_timeout():
 	defend_up = false
