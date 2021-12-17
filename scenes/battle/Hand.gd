@@ -3,13 +3,8 @@ extends Node2D
 var card_blue = preload("res://scenes/cards/CardBlue.tscn")
 var card_yellow = preload("res://scenes/cards/CardYellow.tscn")
 
-var deck = []
 var hand = []
 var selection = 0
-
-signal hero_swap(name)
-signal defend(time)
-signal damage_enemy(value)
 
 func setHandPositions():
 	if selection > hand.size() - 1:
@@ -26,25 +21,9 @@ func setHandPositions():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var unshuffled_deck = []
-	for i in 3:
-		var card = card_blue.instance()
-		card.connect("hero_swap", self, "_on_hero_swap")
-		card.connect("hero_defend", self, "_on_defend")
-		unshuffled_deck.push_back(card)
-		
-		card = card_yellow.instance()
-		card.connect("hero_swap", self, "_on_hero_swap")
-		card.connect("damage_enemy", self, "_on_damage_enemy")
-		unshuffled_deck.push_back(card)
-		
-	# Shuffle deck of 3 attack and 3 defend
-	for i in 6:
-		deck.push_back(unshuffled_deck.pop_at(randi() % unshuffled_deck.size()))
-		
 #	# Start with 2 cards in first hand
-	hand.push_back(deck.pop_front())
-	hand.push_back(deck.pop_front())
+	hand.push_back($Deck.draw())
+	hand.push_back($Deck.draw())
 #
 	add_child(hand[0])
 	add_child(hand[1])
@@ -52,8 +31,8 @@ func _ready():
 
 func _on_Timer_timeout():
 	# Draw a card
-	if hand.size() < 5 and not deck.empty():
-		hand.push_back(deck.pop_front())
+	if hand.size() < 5 and not $Deck.is_empty():
+		hand.push_back($Deck.draw())
 		add_child(hand.back())
 		setHandPositions()
 	
@@ -69,7 +48,7 @@ func _on_player_key(key):
 			
 			# Return card to deck
 			remove_child(hand[selection])
-			deck.push_back(hand.pop_at(selection))
+			$Deck.put_on_bottom(hand.pop_at(selection))
 	setHandPositions()
 	
 func _on_hero_death(hero):
@@ -79,21 +58,11 @@ func _on_hero_death(hero):
 		card_class = CardYellow
 	else:
 		card_class = CardBlue
+		
+	$Deck.removeClass(card_class)
 	
-	for i in range(deck.size()-1, -1, -1):
-		if deck[i] is card_class:
-			deck.pop_at(i).queue_free()
 	for i in range(hand.size()-1, -1, -1):
 		if hand[i] is card_class:
 			remove_child(hand[i])
 			hand.pop_at(i).queue_free()
 	setHandPositions()
-	
-func _on_hero_swap(name):
-	emit_signal("hero_swap", name)
-	
-func _on_defend(time):
-	emit_signal("defend", time)
-	
-func _on_damage_enemy(value):
-	emit_signal("damage_enemy", value)

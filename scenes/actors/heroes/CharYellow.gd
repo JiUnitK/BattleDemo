@@ -23,3 +23,6 @@ func _on_hp_change(value):
 	elif hp > hp_max:
 		hp = hp_max
 	refreshHP()
+	
+func get_hero_name():
+	return "yellow"

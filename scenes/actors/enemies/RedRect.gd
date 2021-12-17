@@ -1,10 +1,13 @@
 extends Node2D
 
+var effect_text = preload("res://scenes/battle/EffectText.tscn")
+
 var hp = 1000
 var hp_max = 1000
 
 signal enemy_schedules_attack(steps)
 signal enemy_attack(value)
+signal enemy_dead
 
 func refreshHP():
 	$HP.text = str(hp) + "/" + str(hp_max)
@@ -26,9 +29,15 @@ func _on_HeavyAttackTimer_timeout():
 	startRandomTimer()
 	
 func _on_hp_change(value):
+	var text = effect_text.instance()
+	add_child(text)
+	text.flashText(str(value))
+	
 	hp += value
 	if hp <= 0:
 		hp = 0
+		emit_signal("enemy_dead")
 	elif hp > hp_max:
 		hp = hp_max
+		
 	refreshHP()

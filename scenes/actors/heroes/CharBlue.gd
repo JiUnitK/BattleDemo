@@ -1,7 +1,7 @@
 extends Node2D
 
-var hp = 500
-var hp_max = 500
+var hp = 200
+var hp_max = 200
 var dead = false
 
 signal hero_death(hero)
@@ -23,3 +23,6 @@ func _on_hp_change(value):
 	elif hp > hp_max:
 		hp = hp_max
 	refreshHP()
+
+func get_hero_name():
+	return "yellow"
