@@ -23,7 +23,7 @@ func get_turns():
 func refreshHP():
 	$HP.text = str(hp) + "/" + str(hp_max)
 	
-func _on_hp_change(value):
+func change_hp(value):
 	hp += value
 	if hp <= 0:
 		hp = 0

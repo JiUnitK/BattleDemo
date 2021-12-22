@@ -25,7 +25,7 @@ func _on_hero_death(name):
 	$Hand._on_hero_death(name)
 	
 func _on_enemy_attack(value):
-	$Hero._on_hp_change(value)
+	$Cards/Field._on_enemy_attack(value)
 
 func _on_no_more_heroes():
 	$HUD/GameOver.visible = true

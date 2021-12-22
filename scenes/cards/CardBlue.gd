@@ -8,14 +8,12 @@ var hp_max = 200
 var dead = false
 
 signal hero_death(hero)
-signal hero_defend(time_s)
 
 func _ready():
-	connect("hero_defend", get_node("/root/GlobalSignalRouter"), "_on_hero_defend")
 	refreshHP()
 
 func invoke():
-	emit_signal("hero_defend", 1)
+	return "defend"
 
 func get_turns():
 	return 1
@@ -23,7 +21,7 @@ func get_turns():
 func refreshHP():
 	$HP.text = str(hp) + "/" + str(hp_max)
 
-func _on_hp_change(value):
+func change_hp(value):
 	hp += value
 	if hp <= 0:
 		hp = 0
