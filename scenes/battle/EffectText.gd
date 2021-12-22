@@ -37,6 +37,6 @@ func flashText(message, show_time_remaining = false):
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	$Tween.start()
 
-func _process(delta):
+func _process(_delta):
 	if update_time:
 		$Label.text = text_only + " " + "%.3f" % $Timer.get_time_left()

@@ -5,29 +5,43 @@ var effect_text = preload("res://scenes/battle/EffectText.tscn")
 var hp = 1000
 var hp_max = 1000
 
-signal enemy_schedules_attack(steps)
+var heavy_attack_turns = 3
+var normal_attack_turns = 2
+var countdown = 0
+var action_queue = ""
+var action_queue_heavy_atk = "heavy_attack"
+var action_queue_normal_atk = "normal_attack"
+
 signal enemy_attack(value)
 signal enemy_dead
 
 func refreshHP():
 	$HP.text = str(hp) + "/" + str(hp_max)
 	
-func startRandomTimer():
+func start():
 	if randi() % 2:
-		emit_signal("enemy_schedules_attack", $HeavyAttackTimer.wait_time)
-		$HeavyAttackTimer.start()
+		countdown = heavy_attack_turns
+		action_queue = action_queue_heavy_atk
 	else:
-		emit_signal("enemy_schedules_attack", $NormalAttackTimer.wait_time)
-		$NormalAttackTimer.start()
-
-func _on_NormalAttackTimer_timeout():
-	emit_signal("enemy_attack", -50)	
-	startRandomTimer()
-
-func _on_HeavyAttackTimer_timeout():
-	emit_signal("enemy_attack", -100)	
-	startRandomTimer()
+		countdown = normal_attack_turns
+		action_queue = action_queue_normal_atk
+	$TurnsToAction.text = str(countdown)
+		
+func progressTime():
+	if countdown <= 0:
+		return
 	
+	countdown -= 1
+	if countdown == 0:
+		if action_queue == action_queue_normal_atk:
+			emit_signal("enemy_attack", -100)
+			start()
+		else:
+			emit_signal("enemy_attack", -50)	
+			start()
+	else:
+		$TurnsToAction.text = str(countdown)
+
 func _on_hp_change(value):
 	var text = effect_text.instance()
 	add_child(text)
