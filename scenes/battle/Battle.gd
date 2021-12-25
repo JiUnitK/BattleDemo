@@ -6,6 +6,7 @@ func _ready():
 #	$Heroes.connect("no_more_heroes", self, "_on_no_more_heroes")
 	$Enemy/RedRect.connect("enemy_attack", self, "_on_enemy_attack")
 	$Enemy/RedRect.connect("enemy_dead", self, "_on_enemy_dead")
+	$PlayerHealth.connect("no_player_health", self, "_on_no_player_health")
 	
 	$Enemy/RedRect.start()
 			
@@ -25,9 +26,10 @@ func _on_hero_death(name):
 	$Hand._on_hero_death(name)
 	
 func _on_enemy_attack(value):
-	$Cards/Field._on_enemy_attack(value)
+	if not $Cards/Field._on_enemy_attack(value):
+		$PlayerHealth.take_hit()
 
-func _on_no_more_heroes():
+func _on_no_player_health():
 	$HUD/GameOver.visible = true
 	$PauseControl.enable_pause_control(false)
 	get_tree().paused = true

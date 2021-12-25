@@ -18,7 +18,8 @@ func _ready():
 
 func reset():
 	turn = turns
-	showCard()
+	$Card.visible = true
+	$Turn.visible = false
 	
 func invoke():
 	turn -= 1
@@ -46,12 +47,4 @@ func get_hero_name():
 	
 func showCharacter():
 	$Card.visible = false
-	$Character.visible = true
-	$HP.visible = true
 	$Turn.visible = true
-	
-func showCard():
-	$Card.visible = true
-	$Character.visible = false
-	$HP.visible = false
-	$Turn.visible = false
