@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/blue_card.png-183756d6f8604519f31393d34c47247c.stex"
+path="res://.import/nurse.png-96f809b8418cfc5bc2afe94dfb0c3052.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/cards/blue_card.png"
-dest_files=[ "res://.import/blue_card.png-183756d6f8604519f31393d34c47247c.stex" ]
+source_file="res://assets/textures/actors/heroes/nurse.png"
+dest_files=[ "res://.import/nurse.png-96f809b8418cfc5bc2afe94dfb0c3052.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/actor_blue.png-321cc65e3137a824edfd10100b3b2087.stex"
+path="res://.import/shield.png-42cf5150a1a0f990ac4816875d8c12d6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/actors/heroes/actor_blue.png"
-dest_files=[ "res://.import/actor_blue.png-321cc65e3137a824edfd10100b3b2087.stex" ]
+source_file="res://assets/textures/actors/heroes/shield.png"
+dest_files=[ "res://.import/shield.png-42cf5150a1a0f990ac4816875d8c12d6.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

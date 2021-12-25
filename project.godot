@@ -10,14 +10,14 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node2D",
-"class": "CardBlue",
+"class": "CardShield",
 "language": "GDScript",
-"path": "res://scenes/cards/CardBlue.gd"
+"path": "res://scenes/cards/CardShield.gd"
 }, {
 "base": "Node2D",
-"class": "CardYellow",
+"class": "CardSword",
 "language": "GDScript",
-"path": "res://scenes/cards/CardYellow.gd"
+"path": "res://scenes/cards/CardSword.gd"
 }, {
 "base": "",
 "class": "GitAPI",
@@ -25,8 +25,8 @@ _global_script_classes=[ {
 "path": "res://addons/godot-git-plugin/git_api.gdns"
 } ]
 _global_script_class_icons={
-"CardBlue": "",
-"CardYellow": "",
+"CardShield": "",
+"CardSword": "",
 "GitAPI": ""
 }
 

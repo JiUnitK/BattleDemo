@@ -1,13 +1,13 @@
 # warning-ignore-all:RETURN_VALUE_DISCARDED
 extends Node2D
 
-class_name CardBlue
+class_name CardSword
 
-var hp = 200
-var hp_max = 200
+var hp = 100
+var hp_max = 100
 var dead = false
 
-var turns = 3
+var turns = 2
 var turn = turns
 
 signal hero_death(hero)
@@ -20,29 +20,30 @@ func reset():
 	turn = turns
 	$Card.visible = true
 	$Turn.visible = false
-
+	
 func invoke():
 	turn -= 1
 	$Turn.text = str(turn)
-	emit_signal("card_effect", "defend", 0)
+	if turn <= 0:
+		emit_signal("card_effect", "damage_enemy", -100)
 	return turn
 
 func refreshHP():
 	$HP.text = str(hp) + "/" + str(hp_max)
-
+	
 func change_hp(value):
 	hp += value
 	if hp <= 0:
 		hp = 0
 		if not dead:
 			dead = true
-			emit_signal("hero_death", "blue")
+			emit_signal("hero_death", "card_sword")
 	elif hp > hp_max:
 		hp = hp_max
 	refreshHP()
-
+	
 func get_hero_name():
-	return "blue"
+	return "card_sword"
 	
 func showCharacter():
 	$Card.visible = false

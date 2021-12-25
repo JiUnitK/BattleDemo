@@ -30,7 +30,6 @@ func progressTime():
 			for x in position_taken.size():
 				for y in position_taken[x].size():
 					if position_taken[x][y] == field_cards[i]:
-						print("found it")
 						position_taken[x][y] = null
 			
 			remove_child(field_cards[i])

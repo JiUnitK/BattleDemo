@@ -17,9 +17,10 @@ func setPositions():
 		cards[selection].position += Vector2(0, -50)
 
 func insert(card):
-	cards.push_back(card)
-	add_child(card)
-	setPositions()
+	if card != null:
+		cards.push_back(card)
+		add_child(card)
+		setPositions()
 
 func getSize():
 	return cards.size()

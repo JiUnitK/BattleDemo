@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/actor_yellow.png-1c0f720e1107e383ec944fc4ca564cbf.stex"
+path="res://.import/bomber.png-a0917307f690edad7dc57e434d24b9ec.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/actors/heroes/actor_yellow.png"
-dest_files=[ "res://.import/actor_yellow.png-1c0f720e1107e383ec944fc4ca564cbf.stex" ]
+source_file="res://assets/textures/actors/heroes/bomber.png"
+dest_files=[ "res://.import/bomber.png-a0917307f690edad7dc57e434d24b9ec.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

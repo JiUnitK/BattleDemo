@@ -1,7 +1,7 @@
 extends Node
 
-var card_blue = preload("res://scenes/cards/CardBlue.tscn")
-var card_yellow = preload("res://scenes/cards/CardYellow.tscn")
+var card_shield = preload("res://scenes/cards/CardShield.tscn")
+var card_sword = preload("res://scenes/cards/CardSword.tscn")
 
 var deck = []
 
@@ -9,8 +9,8 @@ var deck = []
 func _ready():
 	var unshuffled_deck = []
 	for i in 3:
-		unshuffled_deck.push_back(card_blue.instance())		
-		unshuffled_deck.push_back(card_yellow.instance())		
+		unshuffled_deck.push_back(card_shield.instance())		
+		unshuffled_deck.push_back(card_sword.instance())		
 		
 	# Shuffle deck of 3 attack and 3 defend
 	for i in 6:
