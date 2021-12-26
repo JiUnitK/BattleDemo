@@ -9,11 +9,8 @@ func _ready():
 	$Hand.insert($Deck.draw())
 	$Hand.insert($Deck.draw())
 	$Hand.insert($Deck.draw())
-	
-func progressTime():
-	$Field.progressTime()
-	
-	# Draw
+
+func draw():
 	if $Hand.getSize() < 5:
 		$Hand.insert($Deck.draw())	
 		

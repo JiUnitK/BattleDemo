@@ -31,6 +31,8 @@ func invoke():
 	turn -= 1
 	$Turn.text = str(turn)
 	invokeConcrete()
+	
+func getTurn():
 	return turn
 
 func _ready():

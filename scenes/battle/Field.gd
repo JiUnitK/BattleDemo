@@ -25,18 +25,21 @@ func progressTime():
 	for current_priority in 3:
 		for i in range(field_cards.size()-1, -1, -1):
 			if field_cards[i].getPriority() == current_priority:
-				var turn = field_cards[i].invoke()
-				if turn <= 0:
-					field_cards[i].disconnect("card_effect", self, "_on_card_effect")
-					emit_signal("return_to_deck", field_cards[i])
-					field_cards[i].reset()
-					for x in position_taken.size():
-						for y in position_taken[x].size():
-							if position_taken[x][y] == field_cards[i]:
-								position_taken[x][y] = null
-					
-					remove_child(field_cards[i])
-					field_cards.pop_at(i)
+				field_cards[i].invoke()
+
+func resolveWithdraw():
+	for i in range(field_cards.size()-1, -1, -1):
+		if field_cards[i].getTurn() <= 0:
+			field_cards[i].disconnect("card_effect", self, "_on_card_effect")
+			emit_signal("return_to_deck", field_cards[i])
+			field_cards[i].reset()
+			for x in position_taken.size():
+				for y in position_taken[x].size():
+					if position_taken[x][y] == field_cards[i]:
+						position_taken[x][y] = null
+			
+			remove_child(field_cards[i])
+			field_cards.pop_at(i)
 
 func play(card):
 	field_cards.push_front(card)

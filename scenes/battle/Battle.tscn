@@ -90,3 +90,9 @@ texture = ExtResource( 12 )
 position = Vector2( 250, 48 )
 scale = Vector2( 7, 7 )
 texture = ExtResource( 12 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
