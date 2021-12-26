@@ -2,8 +2,10 @@
 extends "res://scenes/cards/Card.gd"
 
 func readyConcrete():
-	hp = 1
 	hp_max = 1
-	turns = 1
-	turn = turns
+	turn_max = 1
+	priority = 2
 	card_name = "duck"
+
+func flashTextConcrete(value):
+	$EffectText.flashText(value)

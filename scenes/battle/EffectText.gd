@@ -9,25 +9,11 @@ func _ready():
 
 func _on_Timer_timeout():
 	visible = false
-	queue_free()
 
-func flashText(message, show_time_remaining = false):
-	# Display on some random coordinate away from center
-	var offset = randi() % 30
-	if randi() % 2:	
-		offset = -offset
-	position.x += offset
-	
-	offset = randi() % 30
-	if randi() % 2:	
-		offset = -offset
-	position.y += offset
-	
+func flashText(message):	
 	visible = true
-	text_only = message
-	$Label.text = text_only
+	$Label.text = str(message)
 	$Timer.start(1)
-	update_time = show_time_remaining
 	
 	$Tween.interpolate_property(self, "modulate",
 		Color(1, 1, 1, 1), Color(1, 1, 1, 0), 1,
@@ -36,7 +22,3 @@ func flashText(message, show_time_remaining = false):
 		Vector2(position.x, position.y), Vector2(position.x, position.y-50), 1,
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	$Tween.start()
-
-func _process(_delta):
-	if update_time:
-		$Label.text = text_only + " " + "%.3f" % $Timer.get_time_left()

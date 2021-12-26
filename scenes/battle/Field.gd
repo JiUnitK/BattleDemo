@@ -4,7 +4,7 @@ extends Node2D
 var effect_text = preload("res://scenes/battle/EffectText.tscn")
 
 var field_cards = []
-var field_effects = "none"
+var defend_sources = {}
 
 var position_taken = []
 
@@ -21,19 +21,22 @@ func _ready():
 	connect("damage_enemy", get_node("/root/GlobalSignalRouter"), "_on_damage_enemy")
 
 func progressTime():
-	# Progress field effects
-	for i in range(field_cards.size()-1, -1, -1):
-		var turn = field_cards[i].invoke()
-		if turn <= 0:
-			emit_signal("return_to_deck", field_cards[i])
-			field_cards[i].reset()
-			for x in position_taken.size():
-				for y in position_taken[x].size():
-					if position_taken[x][y] == field_cards[i]:
-						position_taken[x][y] = null
-			
-			remove_child(field_cards[i])
-			field_cards.pop_at(i)
+	# Progress field effects in order of priority
+	for current_priority in 3:
+		for i in range(field_cards.size()-1, -1, -1):
+			if field_cards[i].getPriority() == current_priority:
+				var turn = field_cards[i].invoke()
+				if turn <= 0:
+					field_cards[i].disconnect("card_effect", self, "_on_card_effect")
+					emit_signal("return_to_deck", field_cards[i])
+					field_cards[i].reset()
+					for x in position_taken.size():
+						for y in position_taken[x].size():
+							if position_taken[x][y] == field_cards[i]:
+								position_taken[x][y] = null
+					
+					remove_child(field_cards[i])
+					field_cards.pop_at(i)
 
 func play(card):
 	field_cards.push_front(card)
@@ -59,20 +62,33 @@ func summon(card):
 	card.position.y = empty_pos.y * 150
 	card.showCharacter()
 
-func _on_enemy_attack(value):
+func damage_cards(value):
 	if field_cards.empty():
 		return false
-	
+		
+	var defend_sum = 0
+	for i in defend_sources.values():
+		defend_sum += i
+		
+	if value < 0:
+		value += defend_sum
+		if value > 0:
+			value = 0
+			
 	for card in field_cards:
-		if field_effects == "defend":
-			card.change_hp(-1)
-		else:
-			card.change_hp(value)
+		card.change_hp(value)
 	
 	return true
 
-func _on_card_effect(effect, value, _source_str):
+func _on_card_effect(effect, value, source_str):
 	if effect == "defend":
-		field_effects = "defend"
+		defend_sources[source_str] = value
+	elif effect == "remove_defend":
+		defend_sources.erase(source_str)
 	elif effect == "damage_enemy":
 		emit_signal("damage_enemy", value)
+	elif effect == "damage_all":
+		emit_signal("damage_enemy", value)
+		damage_cards(value)
+	elif effect == "heal_party":
+		damage_cards(value)

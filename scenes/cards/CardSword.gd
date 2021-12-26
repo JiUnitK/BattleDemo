@@ -2,12 +2,13 @@
 extends "res://scenes/cards/Card.gd"
 
 func readyConcrete():
-	hp = 20
-	hp_max = 20
-	turns = 3
-	turn = turns
-	card_name = "shield"
+	hp_max = 10
+	turn_max = 3
+	priority = 2
+	card_name = "sword"
 
 func invokeConcrete():
-	if turn <= 0:
-		emit_signal("card_effect", "damage_enemy", -100, "")
+	emit_signal("card_effect", "damage_enemy", -1, card_name)
+
+func flashTextConcrete(value):
+	$EffectText.flashText(value)

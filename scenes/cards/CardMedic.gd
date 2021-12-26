@@ -2,8 +2,13 @@
 extends "res://scenes/cards/Card.gd"
 
 func readyConcrete():
-	hp = 1
 	hp_max = 1
-	turns = 1
-	turn = turns
+	turn_max = 2
+	priority = 2
 	card_name = "medic"
+
+func invokeConcrete():
+	emit_signal("card_effect", "heal_party", 2, "")
+
+func flashTextConcrete(value):
+	$EffectText.flashText(value)

@@ -18,15 +18,15 @@ func _input(event):
 	if event.is_action_pressed("ui_accept"):
 		$Cards.play()	
 	if event.is_action_pressed("ui_advance_time"):
-		# Order is extremely important. Enemy goes first. Then hero. Then cards are drawn
-		$Enemy/RedRect.progressTime()
+		# Order is extremely important. Hero goes first. Then enemy. Then cards are drawn
 		$Cards.progressTime()
+		$Enemy/RedRect.progressTime()
 		
 func _on_hero_death(name):
 	$Hand._on_hero_death(name)
 	
 func _on_enemy_attack(value):
-	if not $Cards/Field._on_enemy_attack(value):
+	if not $Cards/Field.damage_cards(value):
 		$PlayerHealth.take_hit()
 
 func _on_no_player_health():

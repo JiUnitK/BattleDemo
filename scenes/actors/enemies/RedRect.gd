@@ -2,8 +2,8 @@ extends Node2D
 
 var effect_text = preload("res://scenes/battle/EffectText.tscn")
 
-var hp = 1000
-var hp_max = 1000
+var hp = 30
+var hp_max = 30
 
 var heavy_attack_turns = 3
 var normal_attack_turns = 2
@@ -34,10 +34,10 @@ func progressTime():
 	countdown -= 1
 	if countdown == 0:
 		if action_queue == action_queue_normal_atk:
-			emit_signal("enemy_attack", -100)
+			emit_signal("enemy_attack", -2)
 			start()
 		else:
-			emit_signal("enemy_attack", -50)	
+			emit_signal("enemy_attack", -5)	
 			start()
 	else:
 		$TurnsToAction.text = str(countdown)
