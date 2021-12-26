@@ -71,7 +71,7 @@ func _on_enemy_attack(value):
 	
 	return true
 
-func _on_card_effect(effect, value):
+func _on_card_effect(effect, value, _source_str):
 	if effect == "defend":
 		field_effects = "defend"
 	elif effect == "damage_enemy":
