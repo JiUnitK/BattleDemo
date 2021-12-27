@@ -8,6 +8,3 @@ func readyConcrete():
 
 func invokeConcrete():
 	emit_signal("card_effect", "damage_enemy", -1, card_name)
-
-func flashTextConcrete(value):
-	$EffectText.flashText(value)

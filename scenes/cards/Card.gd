@@ -44,8 +44,8 @@ func reset():
 func refreshHP():
 	$HP.text = str(hp) + "/" + str(hp_max)
 
-func change_hp(value):
-	flashTextConcrete(value)
+func changeHP(value):
+	$EffectText.flashText(value)
 	hp += value
 	if hp <= 0:
 		hp = 0
@@ -56,7 +56,7 @@ func change_hp(value):
 		hp = hp_max
 	refreshHP()
 
-func get_hero_name():
+func getName():
 	return card_name
 		
 func showCharacter():

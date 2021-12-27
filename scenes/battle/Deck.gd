@@ -7,6 +7,7 @@ var card_collector = preload("res://scenes/cards/CardCollector.tscn")
 var card_medic = preload("res://scenes/cards/CardMedic.tscn")
 var card_bomber = preload("res://scenes/cards/CardBomber.tscn")
 var card_archer = preload("res://scenes/cards/CardArcher.tscn")
+var card_withdraw = preload("res://scenes/cards/CardWithdraw.tscn")
 
 var deck = []
 
@@ -31,6 +32,18 @@ func _ready():
 			card = card_sword.instance()
 		elif i["class"] == "shield":
 			card = card_shield.instance()
+		elif i["class"] == "duck":
+			card = card_duck.instance()
+		elif i["class"] == "collector":
+			card = card_collector.instance()
+		elif i["class"] == "medic":
+			card = card_medic.instance()
+		elif i["class"] == "bomber":
+			card = card_bomber.instance()
+		elif i["class"] == "archer":
+			card = card_archer.instance()
+		elif i["class"] == "withdraw":
+			card = card_withdraw.instance()
 		else:
 			return
 		card.setID(i["id"])

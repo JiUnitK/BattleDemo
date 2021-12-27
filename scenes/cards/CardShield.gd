@@ -11,6 +11,3 @@ func invokeConcrete():
 		emit_signal("card_effect", "defend", 5, "")
 	else:
 		emit_signal("card_effect", "remove_defend", 5, "")
-
-func flashTextConcrete(value):
-	$EffectText.flashText(value)

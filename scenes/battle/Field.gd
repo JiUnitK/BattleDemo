@@ -30,13 +30,14 @@ func play(card, pos):
 		emit_signal("return_to_deck", field_cards[pos])
 		field_cards[pos].reset()
 		remove_child(field_cards[pos])
-	# summon new character
-	add_child(card)
-	field_cards[pos] = card
-	card.connect("card_effect", self, "_on_card_effect")
-	card.position.x = pos * 100
-	card.position.y = pos * -150
-	card.showCharacter()
+	if card.getName() != "withdraw":
+		# summon new character
+		add_child(card)
+		field_cards[pos] = card
+		card.connect("card_effect", self, "_on_card_effect")
+		card.position.x = pos * 100
+		card.position.y = pos * -150
+		card.showCharacter()
 
 func damage_cards(value):
 	var cards_on_field = false
@@ -57,7 +58,7 @@ func damage_cards(value):
 			
 	for card in field_cards:
 		if card is Card:
-			card.change_hp(value)
+			card.changeHP(value)
 	return true
 
 func _on_card_effect(effect, value, source_str):

@@ -9,6 +9,3 @@ func readyConcrete():
 func invokeConcrete():
 	if turn == 2:
 		emit_signal("card_effect", "heal_party", 2, "")
-
-func flashTextConcrete(value):
-	$EffectText.flashText(value)

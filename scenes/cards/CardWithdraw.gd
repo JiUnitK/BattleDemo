@@ -2,9 +2,4 @@
 extends "res://scenes/cards/Card.gd"
 
 func readyConcrete():
-	hp_max = 2
-	priority = 2
-	card_name = "collector"
-
-func invokeConcrete():
-	return
+	card_name = "withdraw"

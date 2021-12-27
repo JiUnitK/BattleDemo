@@ -40,6 +40,17 @@
             "name": "rebecca",
             "class": "shield",
             "id": 8
+        },
+        {
+            "name": "",
+            "class": "withdraw",
+            "id": 9
+        },
+        {
+            "name": "",
+            "class": "withdraw",
+            "id": 10
         }
+
     ]
 }

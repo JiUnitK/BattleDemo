@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/textures/cards/withdraw.png" type="Texture" id=1]
+[ext_resource path="res://scenes/cards/Card.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/cards/CardWithdraw.gd" type="Script" id=3]
+
+[node name="CardWithdraw" instance=ExtResource( 2 )]
+script = ExtResource( 3 )
+
+[node name="Character" parent="." index="1"]
+texture = ExtResource( 1 )
