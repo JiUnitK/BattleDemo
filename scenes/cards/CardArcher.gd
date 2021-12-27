@@ -3,12 +3,11 @@ extends "res://scenes/cards/Card.gd"
 
 func readyConcrete():
 	hp_max = 20
-	turn_max = 3
 	priority = 2
 	card_name = "archer"
 
 func invokeConcrete():
-	if turn <= 0:
+	if turn == 2:
 		emit_signal("card_effect", "damage_enemy", -4, card_name)
 
 func flashTextConcrete(value):

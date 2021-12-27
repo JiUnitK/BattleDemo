@@ -9,8 +9,7 @@ var hp_max = 1
 var dead = false
 var card_name = "none"
 
-var turn_max = 1
-var turn = turn_max
+var turn = 1
 var priority = 1
 
 signal card_effect(effect, value, source_str)
@@ -29,12 +28,9 @@ func getPriority():
 	return priority
 
 func invoke():
-	turn -= 1
-	$Turn.text = str(turn)
 	invokeConcrete()
-	
-func getTurn():
-	return turn
+	turn += 1
+	$Turn.text = str(turn)
 
 func _ready():
 	readyConcrete()
@@ -43,7 +39,7 @@ func _ready():
 	refreshHP()
 
 func reset():
-	turn = turn_max
+	turn = 1
 	$Turn.text = str(turn)
 	$Card.visible = true
 	$Turn.visible = false

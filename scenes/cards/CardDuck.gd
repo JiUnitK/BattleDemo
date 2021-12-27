@@ -3,7 +3,6 @@ extends "res://scenes/cards/Card.gd"
 
 func readyConcrete():
 	hp_max = 1
-	turn_max = 1
 	priority = 2
 	card_name = "duck"
 
