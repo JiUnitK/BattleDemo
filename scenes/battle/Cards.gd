@@ -25,8 +25,8 @@ func _on_player_key(key):
 	elif key == "accept":
 		$Hand.getSelection()
 		
-func play():
-	$Field.play($Hand.removeSelection())
+func play(pos):
+	$Field.play($Hand.removeSelection(), pos)
 	
 #func _on_hero_death(hero):
 #	# Remove all cards associated with hero

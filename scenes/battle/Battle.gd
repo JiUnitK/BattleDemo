@@ -11,14 +11,25 @@ func _ready():
 	$PlayerHealth.connect("no_player_health", self, "_on_no_player_health")
 	
 	$Enemy/RedRect.start()
-			
+
 func _input(event):
-	if event.is_action_pressed("ui_right") and enable_player_action:
-		$Cards/Hand.moveSelection("right")
-	if event.is_action_pressed("ui_left") and enable_player_action:
-		$Cards/Hand.moveSelection("left")
-	if event.is_action_pressed("ui_accept") and enable_player_action:
-		$Cards.play()	
+	if not $Cards/Field/SelectionArrow.visible:
+		# Selecting card
+		if event.is_action_pressed("ui_right") and enable_player_action:
+			$Cards/Hand.moveSelection("right")
+		if event.is_action_pressed("ui_left") and enable_player_action:
+			$Cards/Hand.moveSelection("left")
+		if event.is_action_pressed("ui_accept") and enable_player_action:
+			$Cards/Field/SelectionArrow.visible = true
+	else:
+		# Selecting field position to summon card
+		if event.is_action_pressed("ui_right") and enable_player_action:
+			$Cards/Field/SelectionArrow.move("right")
+		if event.is_action_pressed("ui_left") and enable_player_action:
+			$Cards/Field/SelectionArrow.move("left")
+		if event.is_action_pressed("ui_accept") and enable_player_action:
+			$Cards.play($Cards/Field/SelectionArrow.getPos())
+			$Cards/Field/SelectionArrow.visible = false
 	if event.is_action_pressed("ui_advance_time"):
 		enable_player_action = false
 		
@@ -47,10 +58,6 @@ var timer_stage = 0
 func _on_Timer_timeout():
 	if timer_stage == 0:
 		$Enemy/RedRect.progressTime()
-		timer_stage += 1
-		$Timer.start()
-	elif timer_stage == 1:
-		$Cards/Field.resolveWithdraw()
 		timer_stage += 1
 		$Timer.start()
 	else:

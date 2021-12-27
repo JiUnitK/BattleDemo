@@ -6,15 +6,13 @@ var effect_text = preload("res://scenes/battle/EffectText.tscn")
 var field_cards = []
 var defend_sources = {}
 
-var position_taken = []
-
 signal return_to_deck(card)
 signal damage_enemy(value)
 
 func _ready():
 	# Create array of 3 positions
 	for x in 3:
-		position_taken.push_back(null)
+		field_cards.push_back(null)
 			
 	connect("damage_enemy", get_node("/root/GlobalSignalRouter"), "_on_damage_enemy")
 
@@ -22,37 +20,22 @@ func progressTime():
 	# Progress field effects in order of priority
 	for current_priority in 3:
 		for i in range(field_cards.size()-1, -1, -1):
-			if field_cards[i].getPriority() == current_priority:
+			if field_cards[i] != null and field_cards[i].getPriority() == current_priority:
 				field_cards[i].invoke()
 
-func resolveWithdraw():
-	for i in range(field_cards.size()-1, -1, -1):
-		if field_cards[i].getTurn() <= 0:
-			field_cards[i].disconnect("card_effect", self, "_on_card_effect")
-			emit_signal("return_to_deck", field_cards[i])
-			field_cards[i].reset()
-			for x in position_taken.size():
-				if position_taken[x]== field_cards[i]:
-					position_taken[x] = null
-			
-			remove_child(field_cards[i])
-			field_cards.pop_at(i)
-
-func play(card):
-	field_cards.push_front(card)
+func play(card, pos):
+	if field_cards[pos] is Card:
+		# Withdraw current character at position
+		field_cards[pos].disconnect("card_effect", self, "_on_card_effect")
+		emit_signal("return_to_deck", field_cards[pos])
+		field_cards[pos].reset()
+		remove_child(field_cards[pos])
+	# summon new character
 	add_child(card)
+	field_cards[pos] = card
 	card.connect("card_effect", self, "_on_card_effect")
-	summon(card)
-		
-func summon(card):
-	var idx = null
-	for i in position_taken.size():
-		if position_taken[i] == null:
-			idx = i
-			break
-	position_taken[idx] = card
-	card.position.x = idx * 100
-	card.position.y = idx * -150
+	card.position.x = pos * 100
+	card.position.y = pos * -150
 	card.showCharacter()
 
 func damage_cards(value):

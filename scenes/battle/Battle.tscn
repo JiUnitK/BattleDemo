@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/battle/PlayerHealth.gd" type="Script" id=1]
 [ext_resource path="res://scenes/battle/PauseControl.gd" type="Script" id=2]
@@ -12,6 +12,8 @@
 [ext_resource path="res://scenes/battle/Cards.gd" type="Script" id=10]
 [ext_resource path="res://scenes/battle/Field.gd" type="Script" id=11]
 [ext_resource path="res://assets/textures/battle/heart.png" type="Texture" id=12]
+[ext_resource path="res://assets/textures/battle/selection_arrow.png" type="Texture" id=13]
+[ext_resource path="res://scenes/battle/SelectionArrow.gd" type="Script" id=14]
 
 [sub_resource type="DynamicFont" id=1]
 size = 100
@@ -59,6 +61,13 @@ script = ExtResource( 9 )
 [node name="Field" type="Node2D" parent="Cards"]
 position = Vector2( 350, 650 )
 script = ExtResource( 11 )
+
+[node name="SelectionArrow" type="Sprite" parent="Cards/Field"]
+visible = false
+position = Vector2( 0, -150 )
+scale = Vector2( 7, 7 )
+texture = ExtResource( 13 )
+script = ExtResource( 14 )
 
 [node name="Hand" type="Node2D" parent="Cards"]
 position = Vector2( 960, 930 )
