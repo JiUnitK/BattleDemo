@@ -23,13 +23,17 @@ func progressTime():
 			if field_cards[i] != null and field_cards[i].getPriority() == current_priority:
 				field_cards[i].invoke()
 
-func play(card, pos):
+func removeCard(pos):
 	if field_cards[pos] is Card:
-		# Withdraw current character at position
 		field_cards[pos].disconnect("card_effect", self, "_on_card_effect")
-		emit_signal("return_to_deck", field_cards[pos])
 		field_cards[pos].reset()
 		remove_child(field_cards[pos])
+		field_cards[pos] = null
+
+func play(card, pos):
+	if field_cards[pos] is Card:
+		removeCard(pos)
+		emit_signal("return_to_deck", field_cards[pos])
 	if card.getName() != "withdraw":
 		# summon new character
 		add_child(card)
@@ -73,3 +77,8 @@ func _on_card_effect(effect, value, source_str):
 		damage_cards(value)
 	elif effect == "heal_party":
 		damage_cards(value)
+	elif effect == "death":
+		for i in field_cards.size():
+			if field_cards[i] != null and field_cards[i].getID() == value:
+				removeCard(i)
+				break

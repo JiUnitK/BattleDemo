@@ -27,19 +27,3 @@ func _on_player_key(key):
 		
 func play(pos):
 	$Field.play($Hand.removeSelection(), pos)
-	
-#func _on_hero_death(hero):
-#	# Remove all cards associated with hero
-#	var card_class
-#	if hero == "yellow":
-#		card_class = CardYellow
-#	else:
-#		card_class = CardBlue
-#
-#	$Deck.removeClass(card_class)
-#
-#	for i in range(hand.size()-1, -1, -1):
-#		if hand[i] is card_class:
-#			remove_child(hand[i])
-#			hand.pop_at(i).queue_free()
-#	setHandPositions()

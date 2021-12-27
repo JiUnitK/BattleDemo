@@ -4,8 +4,6 @@ extends Node2D
 var enable_player_action = true
 	
 func _ready():
-#	$Heroes.connect("hero_death", self, "_on_hero_death")
-#	$Heroes.connect("no_more_heroes", self, "_on_no_more_heroes")
 	$Enemy/RedRect.connect("enemy_attack", self, "_on_enemy_attack")
 	$Enemy/RedRect.connect("enemy_dead", self, "_on_enemy_dead")
 	$PlayerHealth.connect("no_player_health", self, "_on_no_player_health")
@@ -20,13 +18,13 @@ func _input(event):
 		if event.is_action_pressed("ui_left") and enable_player_action:
 			$Cards/Hand.moveSelection("left")
 		if event.is_action_pressed("ui_accept") and enable_player_action:
-			$Cards/Field/SelectionArrow.visible = true
+			if $Cards/Hand.getSize() > 0:
+				$Cards/Field/SelectionArrow.visible = true
+			else:
+				# no cards in hand. Just advance time
+				progressTime()
 		if event.is_action_pressed("ui_advance_time"):
-			enable_player_action = false
-			
-			# Order is extremely important. Hero goes first. Then enemy. Then cards are drawn
-			$Cards/Field.progressTime()
-			$Timer.start()
+			progressTime()
 	else:
 		# Selecting field position to summon card
 		if event.is_action_pressed("ui_right") and enable_player_action:
@@ -36,10 +34,14 @@ func _input(event):
 		if event.is_action_pressed("ui_accept") and enable_player_action:
 			$Cards.play($Cards/Field/SelectionArrow.getPos())
 			$Cards/Field/SelectionArrow.visible = false
-		
-func _on_hero_death(name):
-	$Hand._on_hero_death(name)
-	
+
+func progressTime():
+	enable_player_action = false
+			
+	# Order is extremely important. Hero goes first. Then enemy. Then cards are drawn
+	$Cards/Field.progressTime()
+	$Timer.start()
+
 func _on_enemy_attack(value):
 	if not $Cards/Field.damage_cards(value):
 		$PlayerHealth.take_hit()
