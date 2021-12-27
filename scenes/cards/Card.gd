@@ -3,6 +3,7 @@ extends Node2D
 
 class_name Card
 
+var id = 0
 var hp = 1
 var hp_max = 1
 var dead = false
@@ -68,3 +69,9 @@ func get_hero_name():
 func showCharacter():
 	$Card.visible = false
 	$Turn.visible = true
+	
+func getID():
+	return id
+	
+func setID(new_id):
+	id = new_id

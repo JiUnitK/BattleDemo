@@ -3,35 +3,43 @@
     "cards": [
         {
             "name": "john",
-            "class": "sword"
+            "class": "sword",
+            "id": 1
         },
         {
             "name": "jane",
-            "class": "sword"
+            "class": "sword",
+            "id": 2
         },
         {
             "name": "hosiah",
-            "class": "sword"
+            "class": "sword",
+            "id": 3
         },
         {
             "name": "juan",
-            "class": "sword"
+            "class": "sword",
+            "id": 4
         },
         {
             "name": "nathan",
-            "class": "shield"
+            "class": "shield",
+            "id": 5
         },
         {
             "name": "xiayue",
-            "class": "shield"
+            "class": "shield",
+            "id": 6
         },
         {
             "name": "donny",
-            "class": "shield"
+            "class": "shield",
+            "id": 7
         },
         {
             "name": "rebecca",
-            "class": "shield"
+            "class": "shield",
+            "id": 8
         }
     ]
 }

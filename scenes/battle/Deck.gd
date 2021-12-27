@@ -26,11 +26,15 @@ func _ready():
 	var unshuffled_deck = []
 	var saved_deck_dict = load_deck()
 	for i in saved_deck_dict["cards"]:
-		print(i["name"])
+		var card
 		if i["class"] == "sword":
-			unshuffled_deck.push_back(card_sword.instance())
+			card = card_sword.instance()
 		elif i["class"] == "shield":
-			unshuffled_deck.push_back(card_shield.instance())
+			card = card_shield.instance()
+		else:
+			return
+		card.setID(i["id"])
+		unshuffled_deck.push_back(card)
 		
 	# Shuffle deck
 	for i in unshuffled_deck.size():
