@@ -39,9 +39,13 @@ func play(card, pos):
 	card.showCharacter()
 
 func damage_cards(value):
-	if field_cards.empty():
+	var cards_on_field = false
+	for i in field_cards:
+		if i is Card:
+			cards_on_field = true
+	if not cards_on_field:
 		return false
-		
+	
 	var defend_sum = 0
 	for i in defend_sources.values():
 		defend_sum += i
@@ -52,8 +56,8 @@ func damage_cards(value):
 			value = 0
 			
 	for card in field_cards:
-		card.change_hp(value)
-	
+		if card is Card:
+			card.change_hp(value)
 	return true
 
 func _on_card_effect(effect, value, source_str):

@@ -21,6 +21,12 @@ func _input(event):
 			$Cards/Hand.moveSelection("left")
 		if event.is_action_pressed("ui_accept") and enable_player_action:
 			$Cards/Field/SelectionArrow.visible = true
+		if event.is_action_pressed("ui_advance_time"):
+			enable_player_action = false
+			
+			# Order is extremely important. Hero goes first. Then enemy. Then cards are drawn
+			$Cards/Field.progressTime()
+			$Timer.start()
 	else:
 		# Selecting field position to summon card
 		if event.is_action_pressed("ui_right") and enable_player_action:
@@ -30,12 +36,6 @@ func _input(event):
 		if event.is_action_pressed("ui_accept") and enable_player_action:
 			$Cards.play($Cards/Field/SelectionArrow.getPos())
 			$Cards/Field/SelectionArrow.visible = false
-	if event.is_action_pressed("ui_advance_time"):
-		enable_player_action = false
-		
-		# Order is extremely important. Hero goes first. Then enemy. Then cards are drawn
-		$Cards/Field.progressTime()
-		$Timer.start()
 		
 func _on_hero_death(name):
 	$Hand._on_hero_death(name)
