@@ -30,8 +30,7 @@ func getPriority():
 func invoke():
 	invokeConcrete()
 	turn += 1
-	$Turn.text = str(turn)
-
+	
 func _ready():
 	readyConcrete()
 	hp = hp_max
@@ -40,9 +39,7 @@ func _ready():
 
 func reset():
 	turn = 1
-	$Turn.text = str(turn)
 	$Card.visible = true
-	$Turn.visible = false
 
 func refreshHP():
 	$HP.text = str(hp) + "/" + str(hp_max)
@@ -64,7 +61,6 @@ func get_hero_name():
 		
 func showCharacter():
 	$Card.visible = false
-	$Turn.visible = true
 	
 func getID():
 	return id
