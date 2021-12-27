@@ -10,19 +10,30 @@ var card_archer = preload("res://scenes/cards/CardArcher.tscn")
 
 var deck = []
 
+func load_deck():
+	var file = File.new()
+	if file.open("res://data/default_deck.json", file.READ) != OK:
+		return
+	var text = file.get_as_text()
+	file.close()
+	var data_parse = JSON.parse(text)
+	if data_parse.error != OK:
+		return
+	return data_parse.result
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var unshuffled_deck = []
-	unshuffled_deck.push_back(card_shield.instance())
-	unshuffled_deck.push_back(card_sword.instance())
-	unshuffled_deck.push_back(card_duck.instance())
-	unshuffled_deck.push_back(card_collector.instance())
-	unshuffled_deck.push_back(card_medic.instance())
-	unshuffled_deck.push_back(card_bomber.instance())
-	unshuffled_deck.push_back(card_archer.instance())
+	var saved_deck_dict = load_deck()
+	for i in saved_deck_dict["cards"]:
+		print(i["name"])
+		if i["class"] == "sword":
+			unshuffled_deck.push_back(card_sword.instance())
+		elif i["class"] == "shield":
+			unshuffled_deck.push_back(card_shield.instance())
 		
 	# Shuffle deck
-	for i in 7:
+	for i in unshuffled_deck.size():
 		deck.push_back(unshuffled_deck.pop_at(randi() % unshuffled_deck.size()))
 
 func draw():

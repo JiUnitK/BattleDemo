@@ -1,0 +1,37 @@
+{
+    "deck": "default",
+    "cards": [
+        {
+            "name": "john",
+            "class": "sword"
+        },
+        {
+            "name": "jane",
+            "class": "sword"
+        },
+        {
+            "name": "hosiah",
+            "class": "sword"
+        },
+        {
+            "name": "juan",
+            "class": "sword"
+        },
+        {
+            "name": "nathan",
+            "class": "shield"
+        },
+        {
+            "name": "xiayue",
+            "class": "shield"
+        },
+        {
+            "name": "donny",
+            "class": "shield"
+        },
+        {
+            "name": "rebecca",
+            "class": "shield"
+        }
+    ]
+}
