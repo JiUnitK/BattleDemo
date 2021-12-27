@@ -48,3 +48,4 @@ __meta__ = {
 }
 
 [node name="EffectText" parent="." instance=ExtResource( 5 )]
+visible = false

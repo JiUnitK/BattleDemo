@@ -57,7 +57,7 @@ script = ExtResource( 10 )
 script = ExtResource( 9 )
 
 [node name="Field" type="Node2D" parent="Cards"]
-position = Vector2( 200, 350 )
+position = Vector2( 350, 650 )
 script = ExtResource( 11 )
 
 [node name="Hand" type="Node2D" parent="Cards"]

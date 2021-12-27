@@ -12,11 +12,9 @@ signal return_to_deck(card)
 signal damage_enemy(value)
 
 func _ready():
-	# Create 3x3 array
+	# Create array of 3 positions
 	for x in 3:
-		position_taken.push_back([])
-		for y in 3: 
-			position_taken[x].push_back(null)
+		position_taken.push_back(null)
 			
 	connect("damage_enemy", get_node("/root/GlobalSignalRouter"), "_on_damage_enemy")
 
@@ -34,9 +32,8 @@ func resolveWithdraw():
 			emit_signal("return_to_deck", field_cards[i])
 			field_cards[i].reset()
 			for x in position_taken.size():
-				for y in position_taken[x].size():
-					if position_taken[x][y] == field_cards[i]:
-						position_taken[x][y] = null
+				if position_taken[x]== field_cards[i]:
+					position_taken[x] = null
 			
 			remove_child(field_cards[i])
 			field_cards.pop_at(i)
@@ -46,23 +43,16 @@ func play(card):
 	add_child(card)
 	card.connect("card_effect", self, "_on_card_effect")
 	summon(card)
-
-func getRandomUnusedPos():
-	var empty_pos_stack = []
-	for x in 3:
-		for y in 3:
-			if position_taken[x][y] == null:
-					empty_pos_stack.push_back(Vector2(x, y))
-	
-	var rand_idx = randi() % empty_pos_stack.size()
-	return empty_pos_stack[rand_idx]
 		
-	
 func summon(card):
-	var empty_pos = getRandomUnusedPos()
-	position_taken[empty_pos.x][empty_pos.y] = card
-	card.position.x = empty_pos.x * 150
-	card.position.y = empty_pos.y * 150
+	var idx = null
+	for i in position_taken.size():
+		if position_taken[i] == null:
+			idx = i
+			break
+	position_taken[idx] = card
+	card.position.x = idx * 100
+	card.position.y = idx * -150
 	card.showCharacter()
 
 func damage_cards(value):
