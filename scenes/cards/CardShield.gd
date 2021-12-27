@@ -9,5 +9,3 @@ func readyConcrete():
 func invokeConcrete():
 	if turn == 1:
 		emit_signal("card_effect", "defend", 5, "")
-	else:
-		emit_signal("card_effect", "remove_defend", 5, "")

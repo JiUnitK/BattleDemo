@@ -4,7 +4,7 @@ extends Node2D
 var effect_text = preload("res://scenes/battle/EffectText.tscn")
 
 var field_cards = []
-var defend_sources = {}
+var defend = 0
 
 signal return_to_deck(card)
 signal damage_enemy(value)
@@ -43,7 +43,7 @@ func play(card, pos):
 		card.position.y = pos * -150
 		card.showCharacter()
 
-func damage_cards(value):
+func damage_cards(damage):
 	var cards_on_field = false
 	for i in field_cards:
 		if i is Card:
@@ -51,25 +51,22 @@ func damage_cards(value):
 	if not cards_on_field:
 		return false
 	
-	var defend_sum = 0
-	for i in defend_sources.values():
-		defend_sum += i
-		
-	if value < 0:
-		value += defend_sum
-		if value > 0:
-			value = 0
+	var damage_temp = damage
+	damage += defend
+	defend += damage_temp
+	if damage > 0:
+		damage = 0
+	else:
+		defend = 0
 			
 	for card in field_cards:
 		if card is Card:
-			card.changeHP(value)
+			card.changeHP(damage)
 	return true
 
-func _on_card_effect(effect, value, source_str):
+func _on_card_effect(effect, value, _source_str):
 	if effect == "defend":
-		defend_sources[source_str] = value
-	elif effect == "remove_defend":
-		defend_sources.erase(source_str)
+		defend += value
 	elif effect == "damage_enemy":
 		emit_signal("damage_enemy", value)
 	elif effect == "damage_all":
