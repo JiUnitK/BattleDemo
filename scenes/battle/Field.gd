@@ -5,6 +5,7 @@ var effect_text = preload("res://scenes/battle/EffectText.tscn")
 
 var field_cards = []
 var defend = 0
+var highlight_pos = -1
 
 signal return_to_deck(card)
 signal damage_enemy(value)
@@ -64,6 +65,8 @@ func damage_cards(damage):
 		damage = 0
 	else:
 		defend = 0
+		$Defend.visible = false
+	$Defend.text = "Defend " + str(defend)
 			
 	for card in field_cards:
 		if card is Card:
@@ -73,6 +76,8 @@ func damage_cards(damage):
 func _on_card_effect(effect, value, _source_str):
 	if effect == "defend":
 		defend += value
+		$Defend.text = "Defend " + str(defend)
+		$Defend.visible = true
 	elif effect == "damage_enemy":
 		emit_signal("damage_enemy", value)
 	elif effect == "damage_all":
@@ -85,3 +90,29 @@ func _on_card_effect(effect, value, _source_str):
 			if field_cards[i] != null and field_cards[i].id == value:
 				removeCard(i)
 				break
+
+func removeCrosshair():
+	$Crosshair.visible = false
+	highlight_pos = -1
+
+func MoveCrosshair(dir):
+	if dir == "up":
+		for i in range(highlight_pos+1, field_cards.size()):
+			if field_cards[i] is Card:
+				highlight_pos = i
+				break
+	else:
+		var found_lower_card = false
+		for i in range(highlight_pos-1, -1, -1):
+			if field_cards[i] is Card:
+				found_lower_card = true
+				highlight_pos = i
+				break
+		if not found_lower_card:
+			highlight_pos = -1
+	if highlight_pos >= 0:
+		$Crosshair.position.x = highlight_pos * 100
+		$Crosshair.position.y = highlight_pos * -150
+		$Crosshair.visible = true
+	else:
+		$Crosshair.visible = false

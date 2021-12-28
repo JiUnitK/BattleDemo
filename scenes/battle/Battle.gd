@@ -11,29 +11,36 @@ func _ready():
 	$Enemy/RedRect.start()
 
 func _input(event):
-	if not $Cards/Field/SelectionArrow.visible:
-		# Selecting card
-		if event.is_action_pressed("ui_right") and enable_player_action:
-			$Cards/Hand.moveSelection("right")
-		if event.is_action_pressed("ui_left") and enable_player_action:
-			$Cards/Hand.moveSelection("left")
-		if event.is_action_pressed("ui_accept") and enable_player_action:
-			if $Cards/Hand.getSize() > 0:
-				$Cards/Field/SelectionArrow.visible = true
-			else:
-				# no cards in hand. Just advance time
+	if enable_player_action:
+		if not $Cards/Field/SelectionArrow.visible:
+			# Selecting card
+			if event.is_action_pressed("ui_right"):
+				$Cards/Hand.moveSelection("right")
+			if event.is_action_pressed("ui_left"):
+				$Cards/Hand.moveSelection("left")
+			if event.is_action_pressed("ui_up"):
+				$Cards/Field.MoveCrosshair("up")
+			if event.is_action_pressed("ui_down"):
+				$Cards/Field.MoveCrosshair("down")
+			if event.is_action_pressed("ui_accept"):
+				if $Cards/Hand.getSize() > 0:
+					$Cards/Field/SelectionArrow.visible = true
+				else:
+					# no cards in hand. Just advance time
+					progressTime()
+			if event.is_action_pressed("ui_advance_time"):
 				progressTime()
-		if event.is_action_pressed("ui_advance_time"):
-			progressTime()
-	else:
-		# Selecting field position to summon card
-		if event.is_action_pressed("ui_right") and enable_player_action:
-			$Cards/Field/SelectionArrow.move("right")
-		if event.is_action_pressed("ui_left") and enable_player_action:
-			$Cards/Field/SelectionArrow.move("left")
-		if event.is_action_pressed("ui_accept") and enable_player_action:
-			$Cards.play($Cards/Field/SelectionArrow.getPos())
-			$Cards/Field/SelectionArrow.visible = false
+		else:
+			# Selecting field position to summon card
+			if event.is_action_pressed("ui_right"):
+				$Cards/Field/SelectionArrow.move("right")
+			if event.is_action_pressed("ui_left"):
+				$Cards/Field/SelectionArrow.move("left")
+			if event.is_action_pressed("ui_accept"):
+				$Cards.play($Cards/Field/SelectionArrow.getPos())
+				$Cards/Field/SelectionArrow.visible = false
+			if event.is_action_pressed("ui_back"):
+				$Cards/Field/SelectionArrow.visible = false
 
 func progressTime():
 	enable_player_action = false
