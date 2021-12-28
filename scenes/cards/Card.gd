@@ -48,7 +48,7 @@ func changeHP(value):
 		hp = 0
 		if not dead:
 			dead = true
-			emit_signal("card_effect", "death", 0, card_name)
+			emit_signal("card_effect", "death", id, card_name)
 	elif hp > hp_max:
 		hp = hp_max
 	refreshHP()
