@@ -60,7 +60,6 @@ func is_empty():
 	return deck.empty()
 
 func put_on_bottom(card):
-	print("put on bottom")
 	deck.push_back(card)
 	
 func removeClass(classType):

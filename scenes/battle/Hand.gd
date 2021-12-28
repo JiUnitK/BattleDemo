@@ -15,6 +15,7 @@ func setPositions():
 			
 	if cards.size() > 0:
 		cards[selection].position += Vector2(0, -50)
+		cards[selection].get_node("Description").visible = true
 
 func insert(card):
 	if card != null:
@@ -29,6 +30,7 @@ func getSelection():
 	return cards[selection]
 
 func moveSelection(dir):
+	cards[selection].get_node("Description").visible = false
 	if dir == "left" and selection > 0:
 		selection -= 1
 		setPositions()

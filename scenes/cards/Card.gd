@@ -24,9 +24,6 @@ func invokeConcrete():
 func flashTextConcrete(_value):
 	return
 
-func getPriority():
-	return priority
-
 func invoke():
 	invokeConcrete()
 	turn += 1
@@ -51,19 +48,13 @@ func changeHP(value):
 		hp = 0
 		if not dead:
 			dead = true
-			emit_signal("card_effect", "death", id, card_name)
+			emit_signal("card_effect", "death", 0, card_name)
 	elif hp > hp_max:
 		hp = hp_max
 	refreshHP()
-
-func getName():
-	return card_name
 		
 func showCharacter():
 	$Card.visible = false
-	
-func getID():
-	return id
 	
 func setID(new_id):
 	id = new_id

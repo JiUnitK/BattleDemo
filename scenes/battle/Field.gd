@@ -20,7 +20,7 @@ func progressTime():
 	# Progress field effects in order of priority
 	for current_priority in 3:
 		for i in range(field_cards.size()-1, -1, -1):
-			if field_cards[i] != null and field_cards[i].getPriority() == current_priority:
+			if field_cards[i] != null and field_cards[i].priority == current_priority:
 				field_cards[i].invoke()
 
 func removeCard(pos):
@@ -34,14 +34,19 @@ func play(card, pos):
 	if field_cards[pos] is Card:
 		removeCard(pos)
 		emit_signal("return_to_deck", field_cards[pos])
-	if card.getName() != "withdraw":
+	if card.card_name != "withdraw":
 		# summon new character
 		add_child(card)
 		field_cards[pos] = card
 		card.connect("card_effect", self, "_on_card_effect")
 		card.position.x = pos * 100
 		card.position.y = pos * -150
-		card.showCharacter()
+		card.get_node("Card").visible = false
+		card.get_node("Character").visible = true
+		card.get_node("Description").visible = false
+	else:
+		# Need to put withdraw card back to deck
+		emit_signal("return_to_deck", field_cards[pos])
 
 func damage_cards(damage):
 	var cards_on_field = false
@@ -76,6 +81,6 @@ func _on_card_effect(effect, value, _source_str):
 		damage_cards(value)
 	elif effect == "death":
 		for i in field_cards.size():
-			if field_cards[i] != null and field_cards[i].getID() == value:
+			if field_cards[i] != null and field_cards[i].id == value:
 				removeCard(i)
 				break
