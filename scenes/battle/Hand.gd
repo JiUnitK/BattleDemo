@@ -37,6 +37,8 @@ func moveSelection(dir):
 	elif dir == "right" and selection < cards.size()-1:
 		selection += 1
 		setPositions()
+	else:
+		cards[selection].get_node("Description").visible = true
 
 func removeSelection():
 	if cards.size() > 0:
