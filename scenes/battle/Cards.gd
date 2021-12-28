@@ -22,8 +22,7 @@ func play(pos):
 		$Field.play($Hand.removeSelection(), pos)
 		$Field/Crosshair.moveTo(-1)
 
-func handleMouseHover():
-	var mouse_coord = get_viewport().get_mouse_position()
+func highlightFieldPos(mouse_coord):
 	var closest_idx = -1
 	var char_width_halved = 100
 	var char_height_halved = 100
@@ -34,4 +33,38 @@ func handleMouseHover():
 			closest_idx = i
 			break
 	$Field/Crosshair.moveTo(closest_idx)
-	
+	for i in $Field.field_cards.size():
+		if $Field.field_cards[i] is Card:
+			if i == closest_idx and closest_idx >= 0:
+				$Field.field_cards[i].get_node("Description").visible = true
+			elif $Field.field_cards[i] is Card:
+				$Field.field_cards[i].get_node("Description").visible = false
+
+func handleMouseHover(card_sel_locked):
+	var mouse_coord = get_viewport().get_mouse_position()
+	if card_sel_locked:
+		highlightFieldPos(mouse_coord)
+	else:
+		var card_height_halved = 129
+		
+		if mouse_coord.y > $Hand.global_position.y - card_height_halved:
+			if $Hand.cards.size() <= 0:
+				return
+				
+			# Get center of every card in hand. 
+			# Then determine selection to closest card by horizontal distance	
+			var closest_sel = 0
+			var closest_dist = 99999
+			for i in $Hand.cards.size():
+				var dist = abs($Hand.cards[i].global_position.x - mouse_coord.x)
+				if dist < closest_dist:
+					closest_dist = dist
+					closest_sel = i
+			if $Hand.selection != closest_sel:
+				$Hand.cards[$Hand.selection].global_position.y = $Hand.global_position.y
+				$Hand.cards[$Hand.selection].get_node("Description").visible = false
+				$Hand.selection = closest_sel
+			$Hand.cards[$Hand.selection].global_position.y = $Hand.global_position.y - 50
+			$Hand.cards[$Hand.selection].get_node("Description").visible = true
+		else:
+			highlightFieldPos(mouse_coord)

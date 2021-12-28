@@ -29,29 +29,3 @@ func removeSelection():
 		remove_child(card)
 		setPositions()
 		return card
-
-func handleMouseHover():
-	var mouse_coord = get_viewport().get_mouse_position()
-	
-	var card_height_halved = 129
-	if mouse_coord.y < global_position.y - card_height_halved:
-		return
-	
-	if cards.size() <= 0:
-		return
-	
-	# Get center of every card in hand. 
-	# Then determine selection to closest card by horizontal distance	
-	var closest_sel = 0
-	var closest_dist = 99999
-	for i in cards.size():
-		var dist = abs(cards[i].global_position.x - mouse_coord.x)
-		if dist < closest_dist:
-			closest_dist = dist
-			closest_sel = i
-	if selection != closest_sel:
-		cards[selection].global_position.y = global_position.y
-		cards[selection].get_node("Description").visible = false
-		selection = closest_sel
-	cards[selection].global_position.y = global_position.y - 50
-	cards[selection].get_node("Description").visible = true

@@ -12,10 +12,7 @@ func _ready():
 	$Enemy/RedRect.start()
 	
 func _process(_delta):
-	if not card_sel_locked:
-		$Cards/Hand.handleMouseHover()
-	else:
-		$Cards.handleMouseHover()
+	$Cards.handleMouseHover(card_sel_locked)
 
 func _input(event):
 	if enable_player_action:
