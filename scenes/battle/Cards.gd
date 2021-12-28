@@ -15,6 +15,8 @@ func draw():
 		$Hand.insert($Deck.draw())	
 		
 func _on_return_to_deck(card):
+	if card == null:
+		print("See? tried to put null into deck")
 	$Deck.put_on_bottom(card)
 	
 func _on_player_key(key):

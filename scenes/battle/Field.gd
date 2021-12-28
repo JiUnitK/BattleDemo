@@ -32,8 +32,9 @@ func removeCard(pos):
 
 func play(card, pos):
 	if field_cards[pos] is Card:
+		var old_card = field_cards[pos]
 		removeCard(pos)
-		emit_signal("return_to_deck", field_cards[pos])
+		emit_signal("return_to_deck", old_card)
 	if card.card_name != "withdraw":
 		# summon new character
 		add_child(card)
