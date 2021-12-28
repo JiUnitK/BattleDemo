@@ -6,6 +6,9 @@ var effect_text = preload("res://scenes/battle/EffectText.tscn")
 var field_cards = []
 var defend = 0
 
+var x_offset = 100
+var y_offset = -150
+
 signal return_to_deck(card)
 signal damage_enemy(value)
 
@@ -43,8 +46,8 @@ func play(card, pos):
 		add_child(card)
 		field_cards[pos] = card
 		card.connect("card_effect", self, "_on_card_effect")
-		card.position.x = pos * 100
-		card.position.y = pos * -150
+		card.position.x = pos * x_offset
+		card.position.y = pos * y_offset
 		card.get_node("Card").visible = false
 		card.get_node("Character").visible = true
 		card.get_node("Description").visible = false
@@ -92,33 +95,3 @@ func _on_card_effect(effect, value, _source_str):
 			if field_cards[i] != null and field_cards[i].id == value:
 				removeCard(i)
 				break
-
-func MoveCrosshair(dir, any_pos):
-	if $Crosshair.pos >= 0 and field_cards[$Crosshair.pos] is Card:
-		field_cards[$Crosshair.pos].get_node("Description").visible = false
-		
-	if dir == "up":
-		if any_pos:
-			$Crosshair.moveTo($Crosshair.pos+1)
-		else:
-			for i in range($Crosshair.pos+1, field_cards.size()):
-				if field_cards[i] is Card:
-					$Crosshair.moveTo(i)
-					break
-	else:
-		if any_pos:
-			$Crosshair.moveTo($Crosshair.pos-1)
-		else:
-			var found_lower_card = false
-			for i in range($Crosshair.pos-1, -1, -1):
-				if field_cards[i] is Card:
-					found_lower_card = true
-					$Crosshair.moveTo(i)
-					break
-			if not found_lower_card:
-				$Crosshair.moveTo(-1)
-	
-	print("pos = " + str($Crosshair.pos))
-	if $Crosshair.pos > 0 and field_cards[$Crosshair.pos] is Card:
-		print("make visible")
-		field_cards[$Crosshair.pos].get_node("Description").visible = true
