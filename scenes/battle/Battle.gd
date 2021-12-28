@@ -18,8 +18,6 @@ func _process(_delta):
 		$Cards.handleMouseHover()
 
 func _input(event):
-	if event.is_action_pressed("ui_back"):
-		print("cancel")
 	if enable_player_action:
 		if not card_sel_locked:
 			# Selecting card
@@ -68,6 +66,7 @@ func _on_Timer_timeout():
 		enable_player_action = true
 		timer_stage = 0
 
-
 func _on_EndTurn_button_up():
+	$Cards/Field/Crosshair.moveTo(-1)
+	card_sel_locked = false
 	progressTime()
