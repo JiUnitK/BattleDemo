@@ -10,21 +10,23 @@ func _ready():
 	
 	$Enemy/RedRect.start()
 
+var selecting_pos = false
 func _input(event):
 	if enable_player_action:
-		if not $Cards/Field/SelectionArrow.visible:
+		if not selecting_pos:
 			# Selecting card
 			if event.is_action_pressed("ui_right"):
 				$Cards/Hand.moveSelection("right")
 			if event.is_action_pressed("ui_left"):
 				$Cards/Hand.moveSelection("left")
 			if event.is_action_pressed("ui_up"):
-				$Cards/Field.MoveCrosshair("up")
+				$Cards/Field.MoveCrosshair("up", false)
 			if event.is_action_pressed("ui_down"):
-				$Cards/Field.MoveCrosshair("down")
+				$Cards/Field.MoveCrosshair("down", false)
 			if event.is_action_pressed("ui_accept"):
+				$Cards/Field/Crosshair.moveTo(0)
 				if $Cards/Hand.getSize() > 0:
-					$Cards/Field/SelectionArrow.visible = true
+					selecting_pos = true
 				else:
 					# no cards in hand. Just advance time
 					progressTime()
@@ -32,15 +34,16 @@ func _input(event):
 				progressTime()
 		else:
 			# Selecting field position to summon card
-			if event.is_action_pressed("ui_right"):
-				$Cards/Field/SelectionArrow.move("right")
-			if event.is_action_pressed("ui_left"):
-				$Cards/Field/SelectionArrow.move("left")
+			if event.is_action_pressed("ui_up"):
+				$Cards/Field.MoveCrosshair("up", true)
+			if event.is_action_pressed("ui_down"):
+				$Cards/Field.MoveCrosshair("false", true)
 			if event.is_action_pressed("ui_accept"):
-				$Cards.play($Cards/Field/SelectionArrow.getPos())
-				$Cards/Field/SelectionArrow.visible = false
+				$Cards.play($Cards/Field/Crosshair.pos)
+				selecting_pos = false
 			if event.is_action_pressed("ui_back"):
-				$Cards/Field/SelectionArrow.visible = false
+				$Cards/Field/Crosshair.moveTo(-1)
+				selecting_pos = false
 
 func progressTime():
 	enable_player_action = false

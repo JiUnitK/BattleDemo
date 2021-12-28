@@ -27,3 +27,4 @@ func _on_player_key(key):
 		
 func play(pos):
 	$Field.play($Hand.removeSelection(), pos)
+	$Field/Crosshair.moveTo(-1)

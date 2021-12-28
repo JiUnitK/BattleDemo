@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/battle/PlayerHealth.gd" type="Script" id=1]
 [ext_resource path="res://scenes/battle/PauseControl.gd" type="Script" id=2]
@@ -12,9 +12,8 @@
 [ext_resource path="res://scenes/battle/Cards.gd" type="Script" id=10]
 [ext_resource path="res://scenes/battle/Field.gd" type="Script" id=11]
 [ext_resource path="res://assets/textures/battle/heart.png" type="Texture" id=12]
-[ext_resource path="res://assets/textures/battle/selection_arrow.png" type="Texture" id=13]
-[ext_resource path="res://scenes/battle/SelectionArrow.gd" type="Script" id=14]
 [ext_resource path="res://assets/textures/battle/crosshair.png" type="Texture" id=15]
+[ext_resource path="res://scenes/battle/Crosshair.gd" type="Script" id=16]
 
 [sub_resource type="DynamicFont" id=1]
 size = 100
@@ -67,24 +66,18 @@ script = ExtResource( 9 )
 position = Vector2( 350, 650 )
 script = ExtResource( 11 )
 
-[node name="SelectionArrow" type="Sprite" parent="Cards/Field"]
-visible = false
-position = Vector2( 0, -150 )
-scale = Vector2( 7, 7 )
-texture = ExtResource( 13 )
-script = ExtResource( 14 )
-
 [node name="Crosshair" type="Sprite" parent="Cards/Field"]
 visible = false
 scale = Vector2( 7, 7 )
 texture = ExtResource( 15 )
+script = ExtResource( 16 )
 
 [node name="Defend" type="Label" parent="Cards/Field"]
 visible = false
-margin_left = -55.0
-margin_top = 113.0
-margin_right = 60.0
-margin_bottom = 135.0
+margin_left = -309.0
+margin_top = -531.0
+margin_right = -194.0
+margin_bottom = -509.0
 custom_fonts/font = SubResource( 2 )
 text = "Defend text"
 align = 1

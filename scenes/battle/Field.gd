@@ -5,7 +5,6 @@ var effect_text = preload("res://scenes/battle/EffectText.tscn")
 
 var field_cards = []
 var defend = 0
-var crosshair_pos = -1
 
 signal return_to_deck(card)
 signal damage_enemy(value)
@@ -30,8 +29,9 @@ func removeCard(pos):
 		field_cards[pos].reset()
 		remove_child(field_cards[pos])
 		field_cards[pos] = null
-		if crosshair_pos == pos:
-			removeCrosshair()
+		if $Crosshair.pos == pos:
+			$Crosshair.visible = false
+			$Crosshair.moveTo(-1)
 
 func play(card, pos):
 	if field_cards[pos] is Card:
@@ -93,28 +93,32 @@ func _on_card_effect(effect, value, _source_str):
 				removeCard(i)
 				break
 
-func removeCrosshair():
-	$Crosshair.visible = false
-	crosshair_pos = -1
-
-func MoveCrosshair(dir):
+func MoveCrosshair(dir, any_pos):
+	if $Crosshair.pos >= 0 and field_cards[$Crosshair.pos] is Card:
+		field_cards[$Crosshair.pos].get_node("Description").visible = false
+		
 	if dir == "up":
-		for i in range(crosshair_pos+1, field_cards.size()):
-			if field_cards[i] is Card:
-				crosshair_pos = i
-				break
+		if any_pos:
+			$Crosshair.moveTo($Crosshair.pos+1)
+		else:
+			for i in range($Crosshair.pos+1, field_cards.size()):
+				if field_cards[i] is Card:
+					$Crosshair.moveTo(i)
+					break
 	else:
-		var found_lower_card = false
-		for i in range(crosshair_pos-1, -1, -1):
-			if field_cards[i] is Card:
-				found_lower_card = true
-				crosshair_pos = i
-				break
-		if not found_lower_card:
-			crosshair_pos = -1
-	if crosshair_pos >= 0:
-		$Crosshair.position.x = crosshair_pos * 100
-		$Crosshair.position.y = crosshair_pos * -150
-		$Crosshair.visible = true
-	else:
-		$Crosshair.visible = false
+		if any_pos:
+			$Crosshair.moveTo($Crosshair.pos-1)
+		else:
+			var found_lower_card = false
+			for i in range($Crosshair.pos-1, -1, -1):
+				if field_cards[i] is Card:
+					found_lower_card = true
+					$Crosshair.moveTo(i)
+					break
+			if not found_lower_card:
+				$Crosshair.moveTo(-1)
+	
+	print("pos = " + str($Crosshair.pos))
+	if $Crosshair.pos > 0 and field_cards[$Crosshair.pos] is Card:
+		print("make visible")
+		field_cards[$Crosshair.pos].get_node("Description").visible = true
