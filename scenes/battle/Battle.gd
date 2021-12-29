@@ -6,6 +6,7 @@ var card_sel_locked = false
 	
 func _ready():
 	$Enemy/RedRect.connect("enemy_attack", self, "_on_enemy_attack")
+	$Enemy/RedRect.connect("enemy_intent", self, "_on_enemy_intent")
 	$Enemy/RedRect.connect("enemy_dead", self, "_on_enemy_dead")
 	$PlayerHealth.connect("no_player_health", self, "_on_no_player_health")
 	
@@ -38,9 +39,19 @@ func progressTime():
 	$Cards/Field.progressTime()
 	$Timer.start()
 
-func _on_enemy_attack(value):
-	if not $Cards/Field.damage_cards(value):
+func _on_enemy_attack(targets, value):
+	var attack_player = true
+	for it in $Cards/Field.field_cards:
+		if it is Card:
+			attack_player = false
+	if attack_player:
 		$PlayerHealth.take_hit()
+	else:
+		for i in targets:
+			$Cards/Field.damage_card(i, value)
+
+func _on_enemy_intent(targets):
+	$Cards/Field.highlightIntent(targets)
 
 func _on_no_player_health():
 	$HUD/GameOver.visible = true

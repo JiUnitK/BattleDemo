@@ -3,10 +3,6 @@ extends Node2D
 var update_time = false
 var text_only = ""
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	visible = false
-
 func _on_Timer_timeout():
 	visible = false
 

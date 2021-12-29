@@ -30,6 +30,7 @@ __meta__ = {
 }
 
 [node name="TurnsToAction" type="Label" parent="."]
+visible = false
 margin_left = -20.0
 margin_top = -125.0
 margin_right = 20.0

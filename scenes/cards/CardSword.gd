@@ -4,8 +4,7 @@ extends "res://scenes/cards/Card.gd"
 var atk = 1
 
 func readyConcrete():
-	hp_max = 10
-	priority = 2
+	hp_max = 3
 	card_name = "sword"
 	$Description.text = "Hit " + str(atk) + "\nEvery turn"
 	

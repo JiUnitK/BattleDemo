@@ -12,15 +12,12 @@
 [ext_resource path="res://scenes/battle/Cards.gd" type="Script" id=10]
 [ext_resource path="res://scenes/battle/Field.gd" type="Script" id=11]
 [ext_resource path="res://assets/textures/battle/heart.png" type="Texture" id=12]
+[ext_resource path="res://scenes/battle/EffectText.tscn" type="PackedScene" id=13]
 [ext_resource path="res://assets/textures/battle/crosshair.png" type="Texture" id=15]
 [ext_resource path="res://scenes/battle/Crosshair.gd" type="Script" id=16]
 
 [sub_resource type="DynamicFont" id=1]
 size = 100
-font_data = ExtResource( 6 )
-
-[sub_resource type="DynamicFont" id=2]
-size = 18
 font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=3]
@@ -75,20 +72,6 @@ scale = Vector2( 7, 7 )
 texture = ExtResource( 15 )
 script = ExtResource( 16 )
 
-[node name="Defend" type="Label" parent="Cards/Field"]
-visible = false
-margin_left = -309.0
-margin_top = -531.0
-margin_right = -194.0
-margin_bottom = -509.0
-custom_fonts/font = SubResource( 2 )
-text = "Defend text"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Hand" type="Node2D" parent="Cards"]
 position = Vector2( 960, 930 )
 script = ExtResource( 7 )
@@ -97,6 +80,9 @@ script = ExtResource( 7 )
 position = Vector2( 1516, 500 )
 
 [node name="RedRect" parent="Enemy" instance=ExtResource( 5 )]
+
+[node name="EffectText" parent="Enemy/RedRect" instance=ExtResource( 13 )]
+visible = false
 
 [node name="PauseControl" type="Node" parent="."]
 pause_mode = 2

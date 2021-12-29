@@ -2,9 +2,9 @@
 extends Node2D
 
 var effect_text = preload("res://scenes/battle/EffectText.tscn")
+var intent = preload("res://scenes/battle/Intent.tscn")
 
 var field_cards = []
-var defend = 0
 
 var x_offset = 100
 var y_offset = -150
@@ -20,11 +20,9 @@ func _ready():
 	connect("damage_enemy", get_node("/root/GlobalSignalRouter"), "_on_damage_enemy")
 
 func progressTime():
-	# Progress field effects in order of priority
-	for current_priority in 3:
-		for i in range(field_cards.size()-1, -1, -1):
-			if field_cards[i] != null and field_cards[i].priority == current_priority:
-				field_cards[i].invoke()
+	for i in range(field_cards.size()-1, -1, -1):
+		if field_cards[i] != null:
+			field_cards[i].invoke()
 
 func removeCard(pos):
 	if field_cards[pos] is Card:
@@ -55,43 +53,47 @@ func play(card, pos):
 		# Need to put withdraw card back to deck
 		emit_signal("return_to_deck", field_cards[pos])
 
-func damage_cards(damage):
-	var cards_on_field = false
-	for i in field_cards:
-		if i is Card:
-			cards_on_field = true
-	if not cards_on_field:
-		return false
+func damage_card(target, damage):
+	if field_cards[target] == null:
+		return
+				
+	field_cards[target].damage(damage)
 	
-	var damage_temp = damage
-	damage += defend
-	defend += damage_temp
-	if damage > 0:
-		damage = 0
-	else:
-		defend = 0
-		$Defend.visible = false
-	$Defend.text = "Defend " + str(defend)
-			
-	for card in field_cards:
-		if card is Card:
-			card.changeHP(damage)
-	return true
-
+func heal_card(target, value):
+	if field_cards[target] == null:
+		return
+	field_cards[target].changeHP(value)
+	
 func _on_card_effect(effect, value, _source_str):
-	if effect == "defend":
-		defend += value
-		$Defend.text = "Defend " + str(defend)
-		$Defend.visible = true
-	elif effect == "damage_enemy":
+	if effect == "damage_enemy":
 		emit_signal("damage_enemy", value)
 	elif effect == "damage_all":
 		emit_signal("damage_enemy", value)
-		damage_cards(value)
+		for i in 3:
+			if field_cards[i] is Card:
+				field_cards[i].damage(value)
 	elif effect == "heal_party":
-		damage_cards(value)
+		for i in 3:
+			if field_cards[i] is Card:
+				field_cards[i].damage(value)
 	elif effect == "death":
 		for i in field_cards.size():
 			if field_cards[i] != null and field_cards[i].id == value:
 				removeCard(i)
 				break
+
+var intents = []
+func highlightIntent(targets):
+	for it in intents:
+		remove_child(it)
+	intents.clear()
+	
+	for it in targets:
+		var instance = intent.instance()
+		intents.push_back(instance)
+		add_child(instance)
+		instance.position.x = x_offset * it
+		instance.position.y = y_offset * it
+		instance.playing = true
+		
+		

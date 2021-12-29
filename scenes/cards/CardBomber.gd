@@ -6,7 +6,6 @@ var atk = 5
 
 func readyConcrete():
 	hp_max = 5
-	priority = 2
 	card_name = "bomber"
 	$Description.text = "Hit all " + str(atk) + "\nTurn " + str(effect_turn)
 	
