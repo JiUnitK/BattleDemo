@@ -60,11 +60,10 @@ func handleMouseHover(card_sel_locked):
 				if dist < closest_dist:
 					closest_dist = dist
 					closest_sel = i
-			if $Hand.selection != closest_sel:
-				$Hand.cards[$Hand.selection].global_position.y = $Hand.global_position.y
-				$Hand.cards[$Hand.selection].get_node("Description").visible = false
-				$Hand.selection = closest_sel
-			$Hand.cards[$Hand.selection].global_position.y = $Hand.global_position.y - 50
-			$Hand.cards[$Hand.selection].get_node("Description").visible = true
+			if closest_dist > card_height_halved:
+				$Hand.setSelection(-1)
+			else:
+				$Hand.setSelection(closest_sel)
 		else:
+			$Hand.setSelection(-1)
 			highlightFieldPos(mouse_coord)

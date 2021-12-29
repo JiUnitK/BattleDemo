@@ -29,3 +29,15 @@ func removeSelection():
 		remove_child(card)
 		setPositions()
 		return card
+		
+func setSelection(pos):
+	for i in cards.size():
+		cards[i].position.y = 0
+		if i == pos:
+			cards[i].position.y = -50
+	if pos != selection:
+		cards[selection].get_node("Description").visible = false
+	if pos >= 0:	
+		cards[pos].get_node("Description").visible = true
+	selection = pos
+		
