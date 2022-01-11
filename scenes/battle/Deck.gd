@@ -26,28 +26,31 @@ func load_deck():
 func _ready():
 	var unshuffled_deck = []
 	var saved_deck_dict = load_deck()
-	for i in saved_deck_dict["cards"]:
-		var card
-		if i["class"] == "sword":
-			card = card_sword.instance()
-		elif i["class"] == "shield":
-			card = card_shield.instance()
-		elif i["class"] == "duck":
-			card = card_duck.instance()
-		elif i["class"] == "collector":
-			card = card_collector.instance()
-		elif i["class"] == "medic":
-			card = card_medic.instance()
-		elif i["class"] == "bomber":
-			card = card_bomber.instance()
-		elif i["class"] == "archer":
-			card = card_archer.instance()
-		elif i["class"] == "withdraw":
-			card = card_withdraw.instance()
-		else:
-			return
-		card.setID(i["id"])
-		unshuffled_deck.push_back(card)
+	for i in saved_deck_dict["characters"]:
+		if i["equip"] > 0:
+			# Match the equipment to the thing
+			for j in saved_deck_dict["equipment"]:
+				if (i["equip"] == j["id"]):
+					var card
+					if j["type"] == "sword":
+						card = card_sword.instance()
+					elif j["type"] == "shield":
+						card = card_shield.instance()
+					elif j["type"] == "duck":
+						card = card_duck.instance()
+					elif j["type"] == "collector":
+						card = card_collector.instance()
+					elif j["type"] == "medic":
+						card = card_medic.instance()
+					elif j["type"] == "bomber":
+						card = card_bomber.instance()
+					elif j["type"] == "archer":
+						card = card_archer.instance()
+					elif j["type"] == "withdraw":
+						card = card_withdraw.instance()
+					card.setID(i["id"])
+					unshuffled_deck.push_back(card)
+					break
 		
 	# Shuffle deck
 	for i in unshuffled_deck.size():

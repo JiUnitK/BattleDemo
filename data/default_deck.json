@@ -1,55 +1,48 @@
 {
     "deck": "default",
-    "cards": [
+    "characters": [
         {
+            "id": 1,
             "name": "john",
-            "class": "sword",
-            "id": 1
+            "hp": 3,
+            "atk": 0,
+            "equip": 1
         },
         {
-            "name": "jane",
-            "class": "sword",
-            "id": 2
+            "id": 2,
+            "name": "mary",
+            "hp": 2,
+            "atk": 0,
+            "equip": 3
         },
         {
-            "name": "hosiah",
-            "class": "sword",
-            "id": 3
+            "id": 3,
+            "name": "darcy",
+            "hp": 3,
+            "atk": 0,
+            "equip": 2
+        }
+    ],
+    "equipment": [
+        {
+            "id": 1,
+            "type": "sword"
         },
         {
-            "name": "juan",
-            "class": "sword",
-            "id": 4
+            "id": 2,
+            "type": "shield"
         },
         {
-            "name": "nathan",
-            "class": "shield",
-            "id": 5
+            "id": 3,
+            "type": "sword"
         },
         {
-            "name": "xiayue",
-            "class": "shield",
-            "id": 6
+            "id": 4,
+            "type": "sword"
         },
         {
-            "name": "donny",
-            "class": "shield",
-            "id": 7
-        },
-        {
-            "name": "rebecca",
-            "class": "shield",
-            "id": 8
-        },
-        {
-            "name": "",
-            "class": "withdraw",
-            "id": 9
-        },
-        {
-            "name": "",
-            "class": "withdraw",
-            "id": 10
+            "id": 5,
+            "type": "sword"
         }
     ]
 }
