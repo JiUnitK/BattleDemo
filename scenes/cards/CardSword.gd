@@ -5,7 +5,6 @@ var atk = 1
 
 func readyConcrete():
 	hp_max = 3
-	card_name = "sword"
 	$Description.text = "Hit " + str(atk) + "\nEvery turn"
 	
 func invokeConcrete():

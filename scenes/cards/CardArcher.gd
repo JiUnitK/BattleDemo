@@ -6,7 +6,6 @@ var effect_turn = 2
 
 func readyConcrete():
 	hp_max = 20
-	card_name = "archer"
 	$Description.text = "Hit " + str(atk) + "\nTurn " + str(effect_turn)
 
 func invokeConcrete():

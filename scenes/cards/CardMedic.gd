@@ -6,7 +6,6 @@ var effect_turn = 2
 
 func readyConcrete():
 	hp_max = 1
-	card_name = "medic"
 	$Description.text = "Heal party " + str(heal) + "\nTurn " + str(effect_turn)
 
 func invokeConcrete():

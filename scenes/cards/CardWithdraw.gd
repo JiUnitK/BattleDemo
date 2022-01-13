@@ -2,5 +2,4 @@
 extends "res://scenes/cards/Card.gd"
 
 func readyConcrete():
-	card_name = "withdraw"
 	$Description.text = "Withdraw 1"

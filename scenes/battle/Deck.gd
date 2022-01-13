@@ -48,7 +48,12 @@ func _ready():
 						card = card_archer.instance()
 					elif j["type"] == "withdraw":
 						card = card_withdraw.instance()
-					card.setID(i["id"])
+					card.id = i["id"]
+					card.card_name = i["name"]
+					card.base_hp = i["hp"]
+					card.base_atk = i["atk"]
+					card.equip = i["equip"]
+					card.card_class = i["class"]
 					unshuffled_deck.push_back(card)
 					break
 		

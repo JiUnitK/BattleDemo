@@ -5,7 +5,6 @@ var effect_turn = 1
 
 func readyConcrete():
 	hp_max = 5
-	card_name = "shield"
 	defend_max = 3
 	defend = defend_max
 	$Description.text = "Defend " + str(defend) + "\nTurn " + str(effect_turn)

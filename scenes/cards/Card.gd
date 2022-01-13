@@ -3,13 +3,18 @@ extends Node2D
 
 class_name Card
 
+var id = 0
+var card_name = "none"
+var base_hp = 0
+var base_atk = 0
+var equip = 0
+var card_class = ""
+
 var defend = 0
 var defend_max = 0
-var id = 0
 var hp = 1
 var hp_max = 1
 var dead = false
-var card_name = "none"
 
 var turn = 1
 
@@ -72,6 +77,3 @@ func damage(value):
 		
 func showCharacter():
 	$Card.visible = false
-	
-func setID(new_id):
-	id = new_id
