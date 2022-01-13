@@ -1,3 +1,4 @@
+# warning-ignore-all:RETURN_VALUE_DISCARDED
 extends Node2D
 
 var card_shield = preload("res://scenes/cards/CardShield.tscn")
@@ -20,6 +21,8 @@ var selected_card = 0
 
 var saved_deck_dict
 
+# signal deck_exit
+
 func load_deck():
 	var file = File.new()
 	if file.open("res://data/default_deck.json", file.READ) != OK:
@@ -32,6 +35,8 @@ func load_deck():
 	return data_parse.result
 
 func _ready():
+	$ExitButton.connect("button_up", get_node("/root/GlobalSignalRouter"), "_on_deck_exit")
+
 	$Equipment.text = ""
 	saved_deck_dict = load_deck()
 	for i in saved_deck_dict["characters"]:
@@ -140,9 +145,15 @@ func _input(event):
 			var index = int(y_dist / vertical_spacing)
 			if index > spare_equipment.size() - 1:
 				index = spare_equipment.size() - 1
-			print(index)
+			saved_deck_dict["characters"][selected_card].equip = spare_equipment[index]
+			saved_deck_dict["equipment"][index].character = saved_deck_dict["characters"][selected_card].id
 
-			
+			print(saved_deck_dict["equipment"][index].character)
+			print(saved_deck_dict["characters"][selected_card].equip)
+			var file = File.new()
+			file.open("res://data/saved_deck.json", File.READ_WRITE)
+			file.store_line(to_json(saved_deck_dict))
+			file.close()			
 
 # func _process(delta):
 # 	var pos = get_viewport().get_mouse_position()

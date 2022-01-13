@@ -1,0 +1,108 @@
+{
+    "characters": [
+        {
+            "atk": 0,
+            "class": "human",
+            "equip": 1,
+            "hp": 3,
+            "id": 1,
+            "name": "john"
+        },
+        {
+            "atk": 0,
+            "class": "human",
+            "equip": 3,
+            "hp": 2,
+            "id": 2,
+            "name": "mary"
+        },
+        {
+            "atk": 0,
+            "class": "human",
+            "equip": 8,
+            "hp": 3,
+            "id": 3,
+            "name": "darcy"
+        },
+        {
+            "atk": 0,
+            "class": "action",
+            "equip": 6,
+            "hp": 0,
+            "id": 4,
+            "name": "withdraw"
+        },
+        {
+            "atk": 0,
+            "class": "human",
+            "equip": 4,
+            "hp": 3,
+            "id": 5,
+            "name": "daniel"
+        },
+        {
+            "atk": 0,
+            "class": "human",
+            "equip": 5,
+            "hp": 3,
+            "id": 6,
+            "name": "mo"
+        },
+        {
+            "atk": 0,
+            "class": "human",
+            "equip": 7,
+            "hp": 3,
+            "id": 7,
+            "name": "tanner"
+        }
+    ],
+    "deck": "default",
+    "equipment": [
+        {
+            "character": 3,
+            "id": 1,
+            "type": "sword"
+        },
+        {
+            "character": 3,
+            "id": 2,
+            "type": "shield"
+        },
+        {
+            "character": 2,
+            "id": 3,
+            "type": "sword"
+        },
+        {
+            "character": 5,
+            "id": 4,
+            "type": "sword"
+        },
+        {
+            "character": 6,
+            "id": 5,
+            "type": "sword"
+        },
+        {
+            "character": 4,
+            "id": 6,
+            "type": "withdraw"
+        },
+        {
+            "character": 7,
+            "id": 7,
+            "type": "sword"
+        },
+        {
+            "character": 0,
+            "id": 8,
+            "type": "sword"
+        },
+        {
+            "character": 0,
+            "id": 9,
+            "type": "shield"
+        }
+    ]
+}
