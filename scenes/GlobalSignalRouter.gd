@@ -8,3 +8,6 @@ func _on_damage_enemy(value):
 
 func _on_deck_exit():
 	get_node("/root/Main").change_scene("battle")
+
+func _on_change_scene(scene):
+	get_node("/root/Main").change_scene(scene)
