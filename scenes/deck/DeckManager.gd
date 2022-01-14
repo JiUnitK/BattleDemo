@@ -25,7 +25,7 @@ var saved_deck_dict
 
 func load_deck():
 	var file = File.new()
-	if file.open("res://data/default_deck.json", file.READ) != OK:
+	if file.open("res://data/saved_deck.json", file.READ) != OK:
 		return
 	var text = file.get_as_text()
 	file.close()

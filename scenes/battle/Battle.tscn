@@ -1,9 +1,7 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/battle/PlayerHealth.gd" type="Script" id=1]
 [ext_resource path="res://scenes/battle/PauseControl.gd" type="Script" id=2]
-[ext_resource path="res://scenes/battle/Timeline.gd" type="Script" id=3]
-[ext_resource path="res://assets/textures/timeline/red_dot.png" type="Texture" id=4]
 [ext_resource path="res://scenes/actors/enemies/RedRect.tscn" type="PackedScene" id=5]
 [ext_resource path="res://fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://scenes/battle/Hand.gd" type="Script" id=7]
@@ -27,21 +25,6 @@ font_data = ExtResource( 6 )
 script = ExtResource( 8 )
 
 [node name="HUD" type="Node2D" parent="."]
-
-[node name="Timeline" type="ColorRect" parent="HUD"]
-visible = false
-margin_left = 258.0
-margin_top = 700.0
-margin_right = 1658.0
-margin_bottom = 720.0
-script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="EnemyAvatar" type="Sprite" parent="HUD/Timeline"]
-visible = false
-texture = ExtResource( 4 )
 
 [node name="GameOver" type="Label" parent="HUD"]
 visible = false
